@@ -7,6 +7,7 @@
 
 My project is to build a controller for my house's air exchanger that will optimize its utilization. It will take into account the exterior and interior temperature and humidity to decide what the exchanger should do. In a second time I will add a web/phone interface to access and set the controller. In fact I have a lot of other ideas and goals but better to don't make too much promise!
 
+.. TEASER_END
 
 The problem and the current situation
 =====================================
