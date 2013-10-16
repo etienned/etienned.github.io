@@ -1,0 +1,130 @@
+.. link: 
+.. description: Building a controller for an air exchanger from a Raspberry Pi
+.. tags: Raspberry Pi, Python, Margarita, HRV
+.. date: 2013/09/20 21:40:03
+.. title: The Margarita Project
+.. slug: the-margarita-project
+
+My project is to build a controller for my house's air exchanger that will optimize its utilization. It will take into account the exterior and interior temperature and humidity to decide what the exchanger should do. In a second time I will add a web/phone interface to access and set the controller. In fact I have a lot of other ideas and goals but better to don't make too much promise!
+
+
+The problem and the current situation
+=====================================
+
+I suffer from strong allergies so, a few years ago, I added to my house an air exchanger with `HEPA <http://en.wikipedia.org/wiki/HEPA>`_ filter, a `Venmar/VanEE THH 1.0 <http://www.venmar.ca/61-air-exchangers-thh-1-0.html>`_, to purify the inside air. Unfortunately the controllers that can work with this model are really limited (completely manual with only theses modes stop/slow/fast/recycle) or more targeted at managing the relative humidity. Not to mention that they are all pretty ugly. I really don't have any difficulties to understand why `Tony Fadell created the Nest thermostat <http://www.theverge.com/2011/11/14/2559567/tony-fadell-nest-learning-thermostat>`_!
+
+What is needed for an exchanger targeted at purifying the air is to run it just enough to replace all the air of the house every day and maintaining a good humidity level at the same time. Not too dry in winter, not too humid in summer.
+
+    In fact, a human at rest will *consume* around 400 cubic feet of air a day (0.27 CFM). We are 5 humans living in my house. So I need to run the exchanger 45 min. at least each day at slow speed (45 CFM) to exit all the C02 we have created. It takes 12 hours at slow speed to change all the house’s air (30 000 cu ft). It means that, if I change all the house´s air everyday, CO2 level should be kept low enough. At start I was thinking about hooking also a CO2 meter to my controller but with these facts I think I just need to set my controller to run the exchanger at least 45 min. a day from exterior air and all will be fine.
+
+So my current solution is to use my costly `Aube thermostat <http://www.aubetech.com/products/produitsDetails.php?noProduit=158&noLangue=2>`_ (TH146-P-U) that control my heating system and set it to control also the exchanger. I can set it to run the exchanger at a minimum of x minutes every hour and to run it more if the humidity is to high. But it's not possible to choose the fan speed, it's always at slow.
+
+Connecting the exchanger to this thermostat was not easy. There's no information on the 4 wires coming out from the exchanger (I called directly the manufacturer to ask for information but without success). These 4 wires come from a micro-controller on the exchanger board. I did some investigations and found that when 2 of the 4 wires are connected together the exchanger stop. So I added a relay between the thermostat relay and the exchanger to reverse the relay action. Unfortunately, with this setup, if I want to run the exchanger at full speed I still need to go in the basement and turn the button on the machine.
+
+About a year after I set up the exchanger with the thermostat, our house had a significant water infiltration that probably affected the exchanger. After this event the full speed was not working anymore. But I didn't use the full speed really often so I can't be sure if it's the water or how I wired the controller that did the harm. But I know that the problem is definitely in the micro-controller. All the rest of the board is working properly.
+
+So, this left me with two options:
+
+- Change the exchanger board for around 150$ and keep my current setup.
+- Keep the old board and hook it to a custom controller that will fulfill my needs better that my current setup.
+   
+I choose the second option.
+
+
+Choosing the controller hardware
+================================
+
+The first time I heard about the `Raspberry Pi <http://www.raspberrypi.org/>`_ I immediately saw that was the perfect fit for my controller project. It would be easy for me to program the controller in Python, create a Phone interface by running a Web server and interface it with the exchanger and some sensors with the GPIO. So, I bought one.
+
+Just after buying it I stumbled on the `BeagleBone Black <http://beagleboard.org/Products/BeagleBone%20Black>`_ and it definitely look like another really good option for my project. The price is mostly the same (45$ for the BBB vs 35$ for RPi, but you need to buy an SD card for the later). Some advantages of the BBB is more IO (some analogs!) and a faster CPU. The flash memory instead of an SD card can be an advantage or disadvantage, it depends of the use. For me, it doesn't really matter. Some disadvantages are a less powerful video output (it doesn't matter for my project, there's no display) and a smaller community. *Makezine* did a more `thoughtful comparison <http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/>`_.
+
+In my case a micro-controller, like the `Arduino <http://www.arduino.cc/>`_, is not a good match because I need to be able to run a Web server. I found only a few micro-controllers that can run a Web server like the `Atmega88 <http://www.atmel.ca/devices/ATMEGA88.aspx>`_, but the learning curve and complexity is a big disadvantage for no apparent advantage in return in my case.
+
+
+Setting up the Raspberry Pi
+===========================
+
+Choose a Linux distribution
+---------------------------
+
+There's `many Linux distributions <http://elinux.org/RPi_Distributions>`_ for the Raspberry Pi. Personally I choosed `Occidentalis 0.2 <http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2>`_ from `Adafruit <http://www.adafruit.com/>`_. It's derived from `Raspbian <http://www.raspbian.org/>`_. The good things about Occidentalis for me is:
+
+- Like Raspbian, it's based on Debian, my preferred Linux distro.
+- Unlike Raspbian, the SSH daemon is already activated.
+- And the avahi daemon is also already activated (Bonjour client).
+- Many IO kernel modules are included.
+   
+The most important thing for me is SSH and Bonjour because I don't have any display that I can hook to the RPi, so I need to be able to do everything via SSH from the start. With Bonjour I don't have to find/guess its IP address, I can just connect to *raspberrypi.local*.
+
+
+Installing the distro
+---------------------
+
+I used a Mac to install the distro on the SD card. I only followed these `instructions <http://elinux.org/RPi_Easy_SD_Card_Setup#Using_command_line_tools_.282.29>`_ except that I used the `Occidentalis 0.2 image <http://adafruit-raspberry-pi.s3.amazonaws.com/Occidentalisv02.zip>`_.
+
+
+Expanding the SD card
+---------------------
+
+The SD card partition will be the same size as the distro image size, instead of the card size. So, on the first boot, it's a good idea to expand the root partition to fill the SD card. It's easy to do by choosing the *expand_rootfs* menu option of the `raspi-config <http://elinux.org/RPi_raspi-config>`_ script.
+
+
+Upgrading the system
+--------------------
+
+I think it's good idea to upgrade the OS::
+
+    sudo apt-get update
+    sudo apt-get upgrade
+
+
+Adjusting the memory
+--------------------
+
+There are two things to adjust (at least in my case):
+
+1. By default my RPi was using only 256 MB instead of the 512 MB. So I had to upgrade the firmware to access all the memory::
+
+    sudo rpi-update
+
+2. Some memory is used by the GPU. It's possible to change how much memory the GPU will used. In my case, as I will not use an external display, I set it to the minimum::
+
+    sudo raspi-config
+
+Then choose the *Memory Split* option in the *Advanced Options* option. I set the GPU memory to 16 MB, which is the minimum.
+
+It's possible also to `set the memory to be split dynamically (CMA) <http://elinux.org/RPiconfig#Memory>`_.
+
+
+Connect it directly to a Mac
+----------------------------
+
+When I connect my RPi on my LAN, as I use the Occidentalis distro, I can connect to it simply like this::
+
+    $ ssh pi@rasbpberrypi.local
+
+Unfortunately I don't have a WiFi dongle on my RPi and my router is far from my main computer but I would like to have the RPi next to my main computer to ease development. The solution is to connect the Ethernet cable directly in my Mac and share the Mac Internet (WiFi) connection. By sharing the Internet connection, the Mac will create a subnet on 192.168.2.x and will assign dynamically an address to the RPi. So, by sharing the Internet connection, you get two things: a subnet with an address for the RPi so you can now connect to the RPi from your Mac, and Internet access to the RPi. No need to turn on IPV6 on the RPi or to install *avahi-autoipd*, as others suggested.
+
+Unfortunately that did not work for me on the first try (and many tries after!), until I flash that my LAN was already using the 192.168.2.x subnet! I switched my LAN to another subnet and everything started to work. Another solution, if you can't change the LAN subnet is to `change the default address <http://blog.chariotsolutions.com/2013/03/configuring-network-used-by-mac-os-x.html>`_ used by the Mac Internet sharing.
+
+
+Setting up a proper python environment
+--------------------------------------
+
+I will use mainly python to develop my application. So to work comfortably I set up a few things python related (the usuel suspects: `pip <http://www.pip-installer.org/>`_, `ipython <http://ipython.org/>`_, `virtualenv <http://www.virtualenv.org/>`_)::
+
+    $ sudo easy_install pip
+    $ sudo pip install ipython
+    $ sudo pip install virtualenv
+    $ mkdir venv
+    $ cd venv
+    $ virtualenv --system-site-packages margarita
+    $ cd
+    $ source venv/margarita/bin/activate
+
+I also installed vim because vim.tiny, installed by default, lacks too many features::
+
+    $ sudo apt-get install vim
+
+
+That's enough for now. Next time I will write about reading the sensors and controlling the relays.
