@@ -188,7 +188,12 @@ COMPILERS = {
 # "rsync -rav output/* joe@my.site:/srv/www/site"
 # And then do a backup, or ping pingomatic.
 # To do manual deployment, set it to []
-# DEPLOY_COMMANDS = []
+DEPLOY_COMMANDS = [
+    # "nikola build",
+    # "git add *",
+    # "git commit -as",
+    # "git push origin master",
+]
 
 # Where the output site should be located
 # If you don't use an absolute path, it will be considered as relative
@@ -316,12 +321,12 @@ CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
 # To use comments, you can choose between different third party comment
 # systems, one of "disqus", "livefyre", "intensedebate", "moot",
 #                 "googleplus" or "facebook"
-# COMMENT_SYSTEM = "disqus"
+COMMENT_SYSTEM = ""
 # And you also need to add your COMMENT_SYSTEM_ID which
 # depends on what comment system you use. The default is
 # "nikolademo" which is a test account for Disqus. More information
 # is in the manual.
-# COMMENT_SYSTEM_ID = "nikolademo"
+COMMENT_SYSTEM_ID = ""
 
 # Create index.html for story folders?
 # STORY_INDEX = False
