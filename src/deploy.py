@@ -57,7 +57,7 @@ def deploy():
             print run(['git', 'commit', '--amend', '-C', 'HEAD'])
 
     # Push repo to origin
-    print run(['git', 'push', 'origin', 'master'])
+    print run(['git', 'push', '--porcelain', 'origin', 'master'])
 
 
 
