@@ -1,0 +1,45 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'post_helper.tmpl' as helper with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% extends 'base.tmpl' %}
+{% block extra_head %}
+{{ helper.twitter_card_information(post) }}
+{% if post.meta('keywords') %}
+    <meta name="keywords" content="{{ post.meta('keywords')|e }}"/>
+{% endif %}
+{% endblock %}
+
+{% block socials %}
+  <ul class="social-icons">
+    <li><a href="http://www.facebook.com/sharer/sharer.php?u={{ post.permalink(absolute=True)|urlencode }}" class="fb-link" title="Share on Facebook">Facebook</a></li>
+    <li><a href="http://twitter.com/share" class="twitter-link" title="Share on Twitter">Twitter</a></li>
+    <li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ post.permalink(absolute=True)|urlencode }}&amp;title={{ post.title()|urlencode }}" class="linkedin-link" title="Share on LinkedIn">LinkedIn</a></li>
+    <li><a href="https://plus.google.com/share?url={{ post.permalink(absolute=True)|urlencode }}" class="google-link" title="Share on Google+">Google+</a></li>
+    <li><a href="{{ _link('rss', None) }}" class="rss-link" title="RSS Feed">RSS</a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="postbox">
+    {{ helper.html_title() }}
+    <small>
+        <time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
+        {{ helper.html_translations(post) }}
+        {{ helper.html_tags(post) }}
+    </small>
+    {{ post.text() }}
+    {{ helper.html_pager(post) }}
+    {% if not post.meta('nocomments') %}
+        {{ comments.comment_form(post.permalink(absolute=True), post.title(), post.base_path) }}
+    {% endif %}
+    {{ helper.mathjax_script(post) }}
+    </div>
+{% endblock %}
+
+{% block sourcelink %}
+{% if not post.meta('password') %}
+    <li>
+    <a href="{{ post.source_link() }}" id="sourcelink">{{ messages("Source") }}</a>
+    </li>
+{% endif %}
+{% endblock %}

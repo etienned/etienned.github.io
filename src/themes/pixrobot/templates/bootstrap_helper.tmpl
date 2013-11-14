@@ -1,0 +1,106 @@
+{#  Override only the functions that differ from base_helper.tmpl #}
+
+{% macro html_head(is_index=False) %}
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+    {% if is_index %}
+    <title>{{ blog_title|e }}</title>
+    {% else %}
+    <title>{{ title|e }} | {{ blog_title|e }}</title>
+    {% endif %}
+    <meta name="description" content="{{ description }}" />
+    <meta name="author" content="{{ blog_author }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{ mathjax_config }}
+    {% if use_bundles %}
+        {% if use_cdn %}
+            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="/assets/css/all.css" rel="stylesheet" />
+        {% else %}
+            <link href="/assets/css/all-nocdn.css" rel="stylesheet" />
+        {% endif %}
+    {% else %}
+        {% if use_cdn %}
+            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet" />
+        {% else %}
+            <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+        {% endif %}
+        <link href="/assets/css/rst.css" rel="stylesheet" />
+        <link href="/assets/css/code.css" rel="stylesheet" />
+        {# colorbox disable for the moment because not use
+        <link href="/assets/css/colorbox.css" rel="stylesheet" />
+        #}
+        <link href="/assets/css/theme.css" rel="stylesheet" />
+        {% if has_custom_css %}
+            <link href="/assets/css/custom.css" rel="stylesheet" />
+        {% endif %}
+    {% endif %}
+    <!--[if IE 10]>
+        <link href="/assets/css/ie10-device-bug.css" rel="stylesheet" type="text/css"/>
+        <script src="/assets/js/ie10-device-bug.js" type="text/javascript"></script>
+    <![endif]-->
+    {% if rss_link %}
+        {{ rss_link }}
+    {% else %}
+        {% if translations|length > 1 %}
+            {% for language in translations %}
+                <link rel="alternate" type="application/rss+xml" title="RSS ({{ language }})" href="{{ _link('rss', None, language) }}">
+            {% endfor %}
+        {% else %}
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ _link('rss', None) }}">
+        {% endif %}
+    {% endif %}
+    {% if favicons %}
+        {% for name, file, size in favicons %}
+            <link rel="{{ name }}" href="{{ file }}" sizes="{{ size }}"/>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro late_load_js() %}
+    {% if use_bundles %}
+        {% if use_cdn %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"> </script>
+            <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"> </script>
+            <script src="/assets/js/all.js" type="text/javascript"> </script>
+        {% else %}
+            <script src="/assets/js/all-nocdn.js" type="text/javascript"> </script>
+        {% endif %}
+    {% else %}
+        {% if use_cdn %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"> </script>
+            <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"> </script>
+        {% else %}
+            <script src="/assets/js/jquery-1.10.2.min.js" type="text/javascript"> </script>
+            <script src="/assets/js/bootstrap.min.js" type="text/javascript"> </script>
+        {% endif %}
+        {# colorbox disable for the moment because not use
+        <script src="/assets/js/jquery.colorbox-min.js" type="text/javascript"> </script>
+        #}
+    {% endif %}
+{% endmacro %}
+
+
+{% macro html_navigation_links() %}
+    {% for url, text in navigation_links[lang] %}
+        {% if url is mapping %}
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ text }}<b class="caret"></b></a></li>
+            <ul class="dropdown-menu">
+            {% for suburl, text in url %}
+                {% if rel_link(permalink, suburl) == "#" %}
+                    <li class="active"><a href="{{ suburl }}">{{ text }}</a></li>
+                {% else %}
+                    <li><a href="{{ suburl }}">{{ text }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% else %}
+            {% if rel_link(permalink, url) == "#" %}
+                <li class="active"><a href="{{ url }}">{{ text }}</a></li>
+            {% else %}
+                <li><a href="{{ url }}">{{ text }}</a></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

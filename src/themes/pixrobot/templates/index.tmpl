@@ -1,0 +1,41 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'index_helper.tmpl' as helper with context %}
+{% import 'comments_helper.tmpl' as comments with context %}
+{% extends 'base.tmpl' %}
+{% block head %}
+{{ bootstrap.html_head(is_index=True) }}
+<style type="text/css">
+    h2 { font-size: 35px; }
+    h2 a { color: #000000; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 20px; }
+    h5 { font-size: 18px; color: #333333; }
+    h6 { font-size: 16px; color: #666666;}
+</style>
+{% endblock %}
+
+{% block body_title %}
+  <h1>
+    {{ blog_title }}
+    <small>{{ blog_desc }}</small></p>
+  </h1>
+{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="postbox">
+        <h2><a href="{{ post.permalink() }}">{{ post.title() }}</a></h2>
+        <small><time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
+        </small>
+        {{ post.text(teaser_only=index_teasers, is_index=True) }}
+        {% if not post.meta('nocomments') %}
+            {{ comments.comment_link(post.permalink(), post.base_path) }}
+        {% endif %}
+        </div>
+    {% endfor %}
+    {% if prevlink or nextlink %}
+    {{ helper.html_pager() }}
+    {% endif %}
+    {{ comments.comment_link_script() }}
+	{{ helper.mathjax_script(posts) }}
+{% endblock %}

@@ -1,0 +1,97 @@
+{#  -*- coding: utf-8 -*- #}
+{% import 'base_helper.tmpl' as base with context %}
+{% import 'bootstrap_helper.tmpl' as bootstrap with context %}
+{{ set_locale(lang) }}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ lang }}"  xml:lang="{{ lang }}">
+<head>
+    {% block head %}
+    {{ bootstrap.html_head() }}
+    {% endblock %}
+    {% block extra_head %}
+    {% endblock %}
+    {{ extra_head_data }}
+</head>
+<body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+  <div class="container main">
+
+<!-- Menu -->
+    <div class="row">
+      <header>
+        <a href="{{ abs_link('/') }}" class="logo"><img src="/assets/img/pixrobot.png" alt="The Pixrobot!" width="253" height="204" /></a>
+        <div class="main-nav">
+            <a href="{{ abs_link('/') }}">
+            {% block body_title %}
+              <div class="h1">
+                {{ blog_title }}
+              <small>{{ blog_desc }}</small>
+              </div>
+            {% endblock %}
+            </a>
+            <div class="sub-header">
+              <nav>
+                <ul>
+                  {{ bootstrap.html_navigation_links() }}
+                </ul>
+                {% if search_form %}
+                    {{ search_form }}
+                {% endif %}
+              </nav>
+                {% if translations|length > 1 %}
+                <ul class="nav navbar-nav navbar-right">
+                    {% block belowtitle %}
+                    {% if translations|length > 1 %}
+                        <li>{{ base.html_translations() }}</li>
+                    {% endif %}
+                    {% endblock %}
+                </ul>
+                {% endif %}
+                {% if not hide_sourcelink %}
+                    {% block sourcelink %}{% endblock %}
+                {% endif %}
+                {% block socials %}
+                  <ul class="social-icons">
+                    <li><a href="http://www.facebook.com/sharer/sharer.php?u={{ blog_url|urlencode }}" class="fb-link" title="Share on Facebook">Facebook</a></li>
+                    <li><a href="http://twitter.com/share" class="twitter-link" title="Share on Twitter">Twitter</a></li>
+                    <li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ blog_url|urlencode }}&amp;title={{ blog_title|urlencode }}%20%7C%20{{ blog_desc|urlencode }}" class="linkedin-link" title="Share on LinkedIn">LinkedIn</a></li>
+                    <li><a href="https://plus.google.com/share?url={{ blog_url|urlencode }}" class="google-link" title="Share on Google+">Google+</a></li>
+                    <li><a href="{{ _link('rss', None) }}" class="rss-link" title="RSS Feed">RSS</a></li>
+                  </ul>
+                {% endblock %}
+            </div>
+        </div>
+      </header>
+    </div>
+
+<!-- End of Menu -->
+
+    <div class="row">
+        <div class="col-lg-9 col-lg-offset-3 col-md-8 col-md-offset-4 col-sm-12 col-xs-12">
+            <!--Body content-->
+            <div class="body-content">
+                {% block content %}{% endblock %}
+            </div>
+            <!--End of body content-->
+        </div>
+    </div>
+
+    <div class="row footer-row">
+        <div class="col-lg-9 col-lg-offset-3 col-md-8 col-md-offset-4 col-sm-12 col-xs-12">
+            <footer>
+                {{ content_footer }}
+            </footer>
+        </div>
+    </div>
+</div>
+
+{# js disable for the moment because not use
+{{ bootstrap.late_load_js() }}
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script>
+#}
+{% block extra_js %}{% endblock %}
+{{ body_end }}
+</body>
+</html>
