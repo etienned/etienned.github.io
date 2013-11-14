@@ -66,7 +66,7 @@ TRANSLATIONS = {
 # You should provide a key-value pair for each used language.
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ('/stories/about.html', 'About'),
+        ('/about/', 'About'),
         ('/archive.html', 'Blog'),
         ('/categories/index.html', 'Tags'),
     ),
@@ -102,8 +102,8 @@ POSTS = (
     ("posts/*.rst", "posts", "post.tmpl"),
 )
 PAGES = (
-    ("stories/*.txt", "stories", "story.tmpl"),
-    ("stories/*.rst", "stories", "story.tmpl"),
+    ("stories/*.txt", "", "story.tmpl"),
+    ("stories/*.rst", "", "story.tmpl"),
 )
 
 # One or more folders containing files to be copied as-is into the output.
@@ -373,7 +373,7 @@ COMMENT_SYSTEM_ID = "etiennesblog"
 # This can be disabled on a per-page/post basis by adding
 #    .. pretty_url: False
 # to the metadata
-# PRETTY_URLS = False
+PRETTY_URLS = True
 
 # If True, publish future dated posts right away instead of scheduling them.
 # Defaults to False.
