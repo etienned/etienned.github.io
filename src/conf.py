@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+import re
 import time
+
+from nikola import filters
+from nikola.filters import apply_to_file
+
+import resizer
 
 # Configuration, please edit
 
@@ -10,7 +16,7 @@ BLOG_AUTHOR = "Etienne Desautels"
 BLOG_TITLE = "Etienne’s blog"
 # This is the main URL for your site. It will be used
 # in a prominent link
-SITE_URL = "http://getnikola.com/"
+SITE_URL = "http://etienned.github.io/"
 # This is the URL where nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://getnikola.com/"
@@ -60,9 +66,9 @@ TRANSLATIONS = {
 # You should provide a key-value pair for each used language.
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ('/archive.html', 'Archives'),
+        ('/stories/about.html', 'About'),
+        ('/archive.html', 'Blog'),
         ('/categories/index.html', 'Tags'),
-        ('/rss.xml', 'RSS'),
     ),
 }
 
@@ -220,9 +226,20 @@ OUTPUT_FOLDER = '..'
 #
 # Many filters are shipped with Nikola.  A list is available in the manual:
 # <http://getnikola.com/handbook.html#post-processing-filters>
-# FILTERS = {
-#    ".jpg": ["jpegoptim --strip-all -m75 -v %s"],
-# }
+def unspace_li(data):
+    data = data.decode('utf-8')
+    data = re.sub('<li>\s+', '<li>', data, flags=re.UNICODE)
+    data = re.sub('\s+</li>', '</li>', data, flags=re.UNICODE)
+    return data.encode('utf-8')
+
+
+
+
+FILTERS = {
+    ".html": [filters.tidy, apply_to_file(unspace_li)],
+    ".jpg": [resizer.resize, 'echo %s | xargs -I{} jpegtran -optimize -progressive -outfile "{}" "{}"'],
+    ".css": ['echo %s | xargs -I{} java -jar /usr/local/bin/yuicompressor-2.4.7.jar -o "{}" "{}"']
+}
 
 # Create a gzipped copy of each generated file. Cheap server-side optimization.
 # GZIP_FILES = False
@@ -253,7 +270,7 @@ OUTPUT_FOLDER = '..'
 # translated
 
 # Name of the theme to use.
-THEME = "custom"
+THEME = "pixrobot"
 
 # Color scheme to be used for code blocks. If your theme provides
 # "assets/css/code.css" this is ignored.
@@ -272,17 +289,17 @@ THEME = "custom"
 
 # date format used to display post dates.
 # (str used by datetime.datetime.strftime)
-# DATE_FORMAT = '%Y-%m-%d %H:%M'
+DATE_FORMAT = '%b %d, %Y'
 
 # FAVICONS contains (name, file, size) tuples.
 # Used for create favicon link like this:
 # <link rel="name" href="file" sizes="size"/>
 # For creating favicons, take a look at:
 # http://www.netmagazine.com/features/create-perfect-favicon
-# FAVICONS = {
-#     ("icon", "/favicon.ico", "16x16"),
+FAVICONS = (
+    ("icon", "/favicon.ico", "16x16"),
 #     ("icon", "/icon_128x128.png", "128x128"),
-# }
+)
 
 # Show only teasers in the index pages? Defaults to False.
 # INDEX_TEASERS = False
@@ -307,7 +324,7 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # Default is ''
-CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="http://getnikola.com">Nikola</a>         {license}'
+CONTENT_FOOTER = 'Contents &copy; {date} <a href="mailto:{email}">{author}</a> - Powered by <a href="http://getnikola.com">Nikola</a> {license}'
 CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
                                        author=BLOG_AUTHOR,
                                        date=time.gmtime().tm_year,
@@ -316,12 +333,12 @@ CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
 # To use comments, you can choose between different third party comment
 # systems, one of "disqus", "livefyre", "intensedebate", "moot",
 #                 "googleplus" or "facebook"
-COMMENT_SYSTEM = ""
+COMMENT_SYSTEM = "disqus"
 # And you also need to add your COMMENT_SYSTEM_ID which
 # depends on what comment system you use. The default is
 # "nikolademo" which is a test account for Disqus. More information
 # is in the manual.
-COMMENT_SYSTEM_ID = ""
+COMMENT_SYSTEM_ID = "etiennesblog"
 
 # Create index.html for story folders?
 # STORY_INDEX = False
@@ -418,10 +435,10 @@ SOCIAL_BUTTONS_CODE = """"""
 # """
 
 # Hide link to source for the posts?
-# HIDE_SOURCELINK = False
+HIDE_SOURCELINK = True
 # Copy the source files for your pages?
 # Setting it to False implies HIDE_SOURCELINK = True
-# COPY_SOURCES = True
+COPY_SOURCES = False
 
 # Modify the number of Post per Index Page
 # Defaults to 10
@@ -491,10 +508,14 @@ SOCIAL_BUTTONS_CODE = """"""
 # </script>
 # """
 
-# EXTRA_HEAD_DATA = """
+EXTRA_HEAD_DATA = """
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+      <script type="text/javascript" src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+"""
 # <link rel="stylesheet" type="text/css" href="/assets/css/tipuesearch.css">
 # <div id="tipue_search_content" style="margin-left: auto; margin-right: auto; padding: 20px;"></div>
-# """
 # ENABLED_EXTRAS = ['local_search']
 #
 
@@ -511,7 +532,18 @@ SOCIAL_BUTTONS_CODE = """"""
 # EXTRA_HEAD_DATA = ""
 # Google analytics or whatever else you use. Added to the bottom of <body>
 # in the default template (base.tmpl).
-# BODY_END = ""
+BODY_END = """
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45703913-1', 'etienned.github.io');
+  ga('send', 'pageview');
+
+</script>
+"""
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.
@@ -554,20 +586,20 @@ SOCIAL_BUTTONS_CODE = """"""
 # }
 
 
-# Post's dates are considered in GMT by default, if you want to use 
-# another timezone, please set TIMEZONE to match. Check the available 
+# Post's dates are considered in GMT by default, if you want to use
+# another timezone, please set TIMEZONE to match. Check the available
 # list from Wikipedia:
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-# Also, if you want to use a different timezone in some of your posts, 
+# Also, if you want to use a different timezone in some of your posts,
 # you can use W3C-DTF Format (ex. 2012-03-30T23:00:00+02:00)
 #
 # TIMEZONE = 'Europe/Zurich'
 
 # If webassets is installed, bundle JS and CSS to make site loading faster
-# USE_BUNDLES = True
+USE_BUNDLES = True
 
 # Plugins you don't want to use. Be careful :-)
-# DISABLED_PLUGINS = ["render_galleries"]
+DISABLED_PLUGINS = ["render_galleries"]
 
 # Experimental plugins - use at your own risk.
 # They probably need some manual adjustments - please see their respective
