@@ -112,16 +112,16 @@ Unfortunately that did not work for me on the first try (and many tries after!),
 Setting up a proper python environment
 --------------------------------------
 
-I will use mainly python to develop my application. So to work comfortably I set up a few things python related (the usuel suspects: `pip <http://www.pip-installer.org/>`_, `ipython <http://ipython.org/>`_, `virtualenv <http://www.virtualenv.org/>`_)::
+I will use mainly python to develop my application. So to work comfortably I set up a few things python related (the usuel suspects: `pip <http://www.pip-installer.org/>`_, `virtualenv <http://www.virtualenv.org/>`_, `ipython <http://ipython.org/>`_)::
 
     $ sudo easy_install pip
-    $ sudo pip install ipython
     $ sudo pip install virtualenv
     $ mkdir venv
     $ cd venv
     $ virtualenv --system-site-packages margarita
     $ cd
     $ source venv/margarita/bin/activate
+    $ sudo pip install ipython
 
 I also installed vim because vim.tiny, installed by default, lacks too many features::
 
