@@ -4,16 +4,15 @@ import subprocess
 import sys
 
 
-
-def run(args):
+def run(args, check_err=True):
     """
-    Simplified subprocess runner. Check also return code and stderr and exit 
+    Simplified subprocess runner. Check also return code and stderr and exit
     on problems.
     """
     process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
     return_code = process.poll()
-    if return_code != 0 or stderr:
+    if return_code != 0 or (check_err and stderr):
         command = ' '.join(args)
         print """Problem running `%s`.
 Return code: %s
@@ -26,12 +25,13 @@ STDERR: ___________________
 
     return stdout
 
+
 def deploy():
     """
     Deploy Blog to Github account
     """
-    # Check that everything is commited
-    stdout = run(['git', 'status', '-s'])
+    # Check that everything is commited except untracked files
+    stdout = run(['git', 'status', '-s', '-u' 'no'])
 
     if stdout != '':
         print "Git status is not clean. Commit changes before deployment."
@@ -39,11 +39,10 @@ def deploy():
         sys.exit(1)
 
     # Build the blog to be sure everything is up to date
-    print run(['nikola', 'build'])
-
+    print run(['nikola', 'build'], False)
 
     # Check that there's changes to commit
-    stdout = run(['git', 'status', '-s'])
+    stdout = run(['git', 'status', '-s', '-u', 'no'])
     if stdout != '':
         # Check if local is ahead of remote
         stdout = run(['git', 'rev-list', 'origin/master..HEAD'])
@@ -58,7 +57,6 @@ def deploy():
 
     # Push repo to origin
     print run(['git', 'push', '--porcelain', 'origin', 'master'])
-
 
 
 if __name__ == '__main__':
