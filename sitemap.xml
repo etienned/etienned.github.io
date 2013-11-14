@@ -5,88 +5,71 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>http://getnikola.com/</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/2013/index.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/2013/</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/archive.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/2013/index.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/hrv.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/archive.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/hrv.xml</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/categories/</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/index.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/categories/hrv.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/margarita.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/categories/index.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/margarita.xml</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/categories/margarita.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/python.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/categories/python.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/python.xml</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/categories/raspberry-pi.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/raspberry-pi.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/galleries/</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/categories/raspberry-pi.xml</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/galleries/index.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/index.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/index.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/listings/.DS_Store.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/listings/</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/listings/index.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/listings/index.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/posts/the-margarita-project.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/posts/the-margarita-project.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/rss.xml</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/src/cache/posts/the-margarita-project.html</loc>
-  <lastmod>2013-10-15</lastmod>
-  <priority>0.5000</priority>
+  <loc>http://etienned.github.io/stories/about.html</loc>
+  <lastmod>2013-11-14</lastmod>
  </url>
 </urlset>
