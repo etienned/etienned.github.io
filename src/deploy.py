@@ -30,8 +30,14 @@ def deploy():
     """
     Deploy Blog to Github account
     """
+    # Check if where on master branch
+    stdout = run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
+    if stdout.strip() != 'master':
+        print "You're not on the master branch. Switch to it before running 'deploy'."
+        sys.exit(1)
+
     # Check that everything is commited except untracked files
-    stdout = run(['git', 'status', '-s', '-u' 'no'])
+    stdout = run(['git', 'status', '-s'])
 
     if stdout != '':
         print "Git status is not clean. Commit changes before deployment."
@@ -42,7 +48,7 @@ def deploy():
     print run(['nikola', 'build'], False)
 
     # Check that there's changes to commit
-    stdout = run(['git', 'status', '-s', '-u', 'no'])
+    stdout = run(['git', 'status', '-s'])
     if stdout != '':
         # Check if local is ahead of remote
         stdout = run(['git', 'rev-list', 'origin/master..HEAD'])
