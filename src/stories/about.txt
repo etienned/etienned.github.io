@@ -1,5 +1,5 @@
 .. link:
-.. description: I’m a designer and developer living in Montreal. I develop websites, multimedia installations and create graphic and exibit designs. As I like elegance, Python is my prefer programming language.
+.. description: I’m a designer and developer living in Montreal. I develop websites, multimedia installations and create graphic and exhibit designs. As I like elegance, Python is my prefer programming language.
 .. tags:
 .. date: 2013/11/11 23:41:53
 .. title: About
@@ -12,7 +12,7 @@
    :alt: Etienne Desautels’ portrait
 
 I’m a designer and developer living in Montreal and father of 3 young girls.
-I develop websites, multimedia installations and create graphic and exibit designs.
+I develop websites, multimedia installations and create graphic and exhibit designs.
 As I like elegance, Python is my prefer programming language.
 
 More stuff related to me:
