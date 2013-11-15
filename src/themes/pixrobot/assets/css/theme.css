@@ -87,6 +87,11 @@ a:hover, a:focus {
     color: #00607b;
 }
 
+img.align-right {
+    margin: 0 0 0 1em;
+    padding: 0
+}
+
 
 /* GENERAL LAYOUT */
 

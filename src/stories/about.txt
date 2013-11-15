@@ -1,8 +1,23 @@
 .. link:
-.. description:
+.. description: I’m a designer and developer living in Montreal. I develop websites, multimedia installations and create graphic and exibit designs. As I like elegance, Python is my prefer programming language.
 .. tags:
 .. date: 2013/11/11 23:41:53
 .. title: About
 .. slug: about
 
-Write your post here.
+.. image:: /img/etienne.jpg
+   :align: right
+   :width: 128
+   :height: 128
+   :alt: Etienne Desautels’ portrait
+
+I’m a designer and developer living in Montreal and father of 3 young girls.
+I develop websites, multimedia installations and create graphic and exibit designs.
+As I like elegance, Python is my prefer programming language.
+
+More stuff related to me:
+
+- Email: `etienne.desautels@gmail.com <mailto:etienne.desautels@gmail.com>`_
+- LinkedIn: `Etienne Desautels <http://ca.linkedin.com/pub/etienne-desautels/0/28b/617>`_
+- Github: `etienned <https://github.com/etienned>`_
+- Bitbucket: `etienned <https://bitbucket.org/etienned>`__
