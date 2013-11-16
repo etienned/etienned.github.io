@@ -81,21 +81,19 @@
         <div class="body-content">
           <div class="postbox">
             <h1>The Margarita Project</h1><small><time class="published" datetime=
-            "2013-09-20T21:40:03">Sep 20, 2013</time><a class="tag" href=
+            "2013-11-15T20:30:03">Nov 15, 2013</time><a class="tag" href=
             "../../categories/raspberry-pi.html"><span class="badge badge-info">Raspberry
             Pi</span></a> <a class="tag" href="../../categories/python.html"><span class=
             "badge badge-info">Python</span></a> <a class="tag" href=
             "../../categories/margarita.html"><span class=
-            "badge badge-info">Margarita</span></a> <a class="tag" href=
-            "../../categories/hrv.html"><span class=
-            "badge badge-info">HRV</span></a></small>
+            "badge badge-info">Margarita</span></a></small>
 
-            <p>My project is to build a controller for my house's air exchanger that will
-            optimize its utilization. It will take into account the exterior and interior
-            temperature and humidity to decide what the exchanger should do. In a second
-            time I will add a web/phone interface to access and set the controller. In
-            fact I have a lot of other ideas and goals but better to don't make too much
-            promise!</p><!-- TEASER_END -->
+            <p>This project’s goal is building a controller for my house's air exchanger
+            that will optimize its utilization. It will take into account exterior and
+            interior temperature and humidity to decide what the exchanger should do. In
+            a second time I will add a web/phone interface to access and set the
+            controller. In fact, I have a lot of other ideas and goals, but better to not
+            make too many promises!</p><!-- TEASER_END -->
 
             <div class="section" id="the-problem-and-the-current-situation">
               <h2>The problem and the current situation</h2>
@@ -114,30 +112,32 @@
               Tony Fadell created the Nest thermostat</a>!</p>
 
               <p>What is needed for an exchanger targeted at purifying the air is to run
-              it just enough to replace all the air of the house every day and
-              maintaining a good humidity level at the same time. Not too dry in winter,
-              not too humid in summer.</p>
+              it just enough to replace all the house’s air every day and maintaining a
+              good humidity level at the same time. Not too dry in winter, not too humid
+              in summer.</p>
 
               <blockquote>
                 In fact, a human at rest will <em>consume</em> around 400 cubic feet of
-                air a day (0.27 CFM). We are 5 humans living in my house. So I need to
-                run the exchanger 45 min. at least each day at slow speed (45 CFM) to
-                exit all the C02 we have created. It takes 12 hours at slow speed to
-                change all the house’s air (30 000 cu ft). It means that, if I change all
-                the house´s air everyday, CO2 level should be kept low enough. At start I
-                was thinking about hooking also a CO2 meter to my controller but with
-                these facts I think I just need to set my controller to run the exchanger
-                at least 45 min. a day from exterior air and all will be fine.
+                air a day (0.27 CFM). We are 5 humans living in my house. Running the
+                exchanger at slow speed (45 CFM) at least 45 min. each day should exit
+                all the C02 we have created. It takes 12 hours at this speed to change
+                all the house’s air volume (30 000 cu ft). So, if I change all house’s
+                air every day, CO2 level should be kept low enough. At the beginning I
+                was thinking about hooking also a CO2 meter to my controller but, with
+                these facts, I think I just need to set my controller to run the
+                exchanger at least 45 min. a day from exterior air and all will be fine
+                on the CO2 side (I know that my calculations don't take in account some
+                variables…).
               </blockquote>
 
-              <p>So my current solution is to use my costly <a class="reference external"
+              <p>My current solution is to use my costly <a class="reference external"
               href=
               "http://www.aubetech.com/products/produitsDetails.php?noProduit=158&amp;noLangue=2">
               Aube thermostat</a> (TH146-P-U) that control my heating system and set it
               to control also the exchanger. I can set it to run the exchanger at a
-              minimum of x minutes every hour and to run it more if the humidity is to
-              high. But it's not possible to choose the fan speed, it's always at
-              slow.</p>
+              minimum of <em>x</em> minutes every hour and to run it more if there's to
+              much humidity. But it’s not possible to choose the fan speed, it's always
+              at slow. I can neither control the recycling mode.</p>
 
               <p>Connecting the exchanger to this thermostat was not easy. There's no
               information on the 4 wires coming out from the exchanger (I called directly
@@ -149,13 +149,12 @@
               want to run the exchanger at full speed I still need to go in the basement
               and turn the button on the machine.</p>
 
-              <p>About a year after I set up the exchanger with the thermostat, our house
-              had a significant water infiltration that probably affected the exchanger.
-              After this event the full speed was not working anymore. But I didn't use
-              the full speed really often so I can't be sure if it's the water or how I
-              wired the controller that did the harm. But I know that the problem is
-              definitely in the micro-controller. All the rest of the board is working
-              properly.</p>
+              <p>About a year after I did this set up, our house had a significant water
+              infiltration that probably affected the exchanger. After this event the
+              full speed was not working anymore. But I didn't use the full speed really
+              often so I can't be sure if it's the water or how I wired the controller
+              that did the harm. But I know that the problem is definitely in the
+              micro-controller. All the rest of the board is working properly.</p>
 
               <p>So, this left me with two options:</p>
 
@@ -176,27 +175,27 @@
               <p>The first time I heard about the <a class="reference external" href=
               "http://www.raspberrypi.org/">Raspberry Pi</a> I immediately saw that was
               the perfect fit for my controller project. It would be easy for me to
-              program the controller in Python, create a Phone interface by running a Web
+              program the controller in Python, create a Phone interface by running a web
               server and interface it with the exchanger and some sensors with the GPIO.
               So, I bought one.</p>
 
               <p>Just after buying it I stumbled on the <a class="reference external"
               href="http://beagleboard.org/Products/BeagleBone%20Black">BeagleBone
-              Black</a> and it definitely look like another really good option for my
+              Black</a> and it definitely look like another really good candidate for my
               project. The price is mostly the same (45$ for the BBB vs 35$ for RPi, but
-              you need to buy an SD card for the later). Some advantages of the BBB is
-              more IO (some analogs!) and a faster CPU. The flash memory instead of an SD
-              card can be an advantage or disadvantage, it depends of the use. For me, it
-              doesn't really matter. Some disadvantages are a less powerful video output
-              (it doesn't matter for my project, there's no display) and a smaller
+              you need to buy an SD card for the later). Some advantages of the BBB are
+              more IO (some analogs!) and a faster CPU. Having flash memory instead of
+              the SD card can be an advantage or disadvantage, it depends of the use. For
+              me, it doesn't really matter. Some disadvantages are a less powerful video
+              output (it doesn't matter for my project, there's no display) and a smaller
               community. <em>Makezine</em> did a more <a class="reference external" href=
               "http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/">
               thoughtful comparison</a>.</p>
 
               <p>In my case a micro-controller, like the <a class="reference external"
               href="http://www.arduino.cc/">Arduino</a>, is not a good match because I
-              need to be able to run a Web server. I found only a few micro-controllers
-              that can run a Web server like the <a class="reference external" href=
+              need to be able to run a web server. I found only a few micro-controllers
+              that can run a web server like the <a class="reference external" href=
               "http://www.atmel.ca/devices/ATMEGA88.aspx">Atmega88</a>, but the learning
               curve and complexity is a big disadvantage for no apparent advantage in
               return in my case.</p>
@@ -205,17 +204,17 @@
             <div class="section" id="setting-up-the-raspberry-pi">
               <h2>Setting up the Raspberry Pi</h2>
 
-              <div class="section" id="choose-a-linux-distribution">
-                <h3>Choose a Linux distribution</h3>
+              <div class="section" id="choosing-a-linux-distribution">
+                <h3>Choosing a Linux distribution</h3>
 
-                <p>There's <a class="reference external" href=
+                <p>There are <a class="reference external" href=
                 "http://elinux.org/RPi_Distributions">many Linux distributions</a> for
-                the Raspberry Pi. Personally I choosed <a class="reference external"
-                href="http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2">
+                the Raspberry Pi. I chooses <a class="reference external" href=
+                "http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2">
                 Occidentalis 0.2</a> from <a class="reference external" href=
                 "http://www.adafruit.com/">Adafruit</a>. It's derived from <a class=
-                "reference external" href="http://www.raspbian.org/">Raspbian</a>. The
-                good things about Occidentalis for me is:</p>
+                "reference external" href="http://www.raspbian.org/">Raspbian</a>. For me
+                the good things about Occidentalis are:</p>
 
                 <ul class="simple">
                   <li>Like Raspbian, it's based on Debian, my preferred Linux
@@ -223,24 +222,24 @@
 
                   <li>Unlike Raspbian, the SSH daemon is already activated.</li>
 
-                  <li>And the avahi daemon is also already activated (Bonjour
-                  client).</li>
+                  <li>The <a class="reference external" href=
+                  "http://avahi.org/wiki/AboutAvahi">avahi</a> daemon is also already
+                  activated (Bonjour client).</li>
 
                   <li>Many IO kernel modules are included.</li>
                 </ul>
 
-                <p>The most important thing for me is SSH and Bonjour because I don't
-                have any display that I can hook to the RPi, so I need to be able to do
-                everything via SSH from the start. With Bonjour I don't have to
-                find/guess its IP address, I can just connect to
-                <em>raspberrypi.local</em>.</p>
+                <p>The most important things for me are SSH and Bonjour. I don't have any
+                display that I can plug to the RPi, so I need to be able to do everything
+                via SSH from the beginning. With Bonjour I don't have to find/guess its
+                IP address, I can just connect to <em>raspberrypi.local</em>.</p>
               </div>
 
               <div class="section" id="installing-the-distro">
                 <h3>Installing the distro</h3>
 
-                <p>I used a Mac to install the distro on the SD card. I only followed
-                these <a class="reference external" href=
+                <p>I used a Mac to install the distro on the SD card. I followed these
+                <a class="reference external" href=
                 "http://elinux.org/RPi_Easy_SD_Card_Setup#Using_command_line_tools_.282.29">
                 instructions</a> except that I used the <a class="reference external"
                 href=
@@ -251,12 +250,11 @@
               <div class="section" id="expanding-the-sd-card">
                 <h3>Expanding the SD card</h3>
 
-                <p>The SD card partition will be the same size as the distro image size,
-                instead of the card size. So, on the first boot, it's a good idea to
-                expand the root partition to fill the SD card. It's easy to do by
-                choosing the <em>expand_rootfs</em> menu option of the <a class=
-                "reference external" href=
-                "http://elinux.org/RPi_raspi-config">raspi-config</a> script.</p>
+                <p>The SD card partition will be the same size as the distro image size
+                instead of the card size. It's a good idea to expand the root partition
+                to fill the SD card. It's easy to do by choosing the
+                <em>expand_rootfs</em> menu option of the <a class="reference external"
+                href="http://elinux.org/RPi_raspi-config">raspi-config</a> script.</p>
               </div>
 
               <div class="section" id="upgrading-the-system">
@@ -275,15 +273,14 @@ sudo apt-get upgrade
                 <p>There are two things to adjust (at least in my case):</p>
 
                 <ol class="arabic">
-                  <li><p class="first">By default my RPi was using only 256 MB instead of
-                    the 512 MB. So I had to upgrade the firmware to access all the
-                    memory:</p>
+                  <li><p class="first">By default my RPi was using only 256 MB of the
+                    512 MB. I had to upgrade the firmware to access all the memory:</p>
                     <pre class="literal-block">
 sudo rpi-update
 </pre></li>
 
                   <li><p class="first">Some memory is used by the GPU. It's possible to
-                    change how much memory the GPU will used. In my case, as I will not
+                    change how much memory the GPU will use. In my case, as I will not
                     use an external display, I set it to the minimum:</p>
                     <pre class="literal-block">
 sudo raspi-config
@@ -294,23 +291,23 @@ sudo raspi-config
                 Options</em> option. I set the GPU memory to 16 MB, which is the
                 minimum.</p>
 
-                <p>It's possible also to <a class="reference external" href=
+                <p>It's also possible to <a class="reference external" href=
                 "http://elinux.org/RPiconfig#Memory">set the memory to be split
                 dynamically (CMA)</a>.</p>
               </div>
 
-              <div class="section" id="connect-it-directly-to-a-mac">
-                <h3>Connect it directly to a Mac</h3>
+              <div class="section" id="connecting-it-directly-to-a-mac">
+                <h3>Connecting it directly to a Mac</h3>
 
-                <p>When I connect my RPi on my LAN, as I use the Occidentalis distro, I
-                can connect to it simply like this:</p>
+                <p>As I use the Occidentalis distro, I simply have to connect like
+                this:</p>
                 <pre class="literal-block">
 $ ssh pi@rasbpberrypi.local
 </pre>
 
                 <p>Unfortunately I don't have a WiFi dongle on my RPi and my router is
-                far from my main computer but I would like to have the RPi next to my
-                main computer to ease development. The solution is to connect the
+                far from my main computer. But I would like to have the RPi sitting next
+                to my main computer to ease development. A solution is to connect the
                 Ethernet cable directly in my Mac and share the Mac Internet (WiFi)
                 connection. By sharing the Internet connection, the Mac will create a
                 subnet on 192.168.2.x and will assign dynamically an address to the RPi.
@@ -319,24 +316,24 @@ $ ssh pi@rasbpberrypi.local
                 and Internet access to the RPi. No need to turn on IPV6 on the RPi or to
                 install <em>avahi-autoipd</em>, as others suggested.</p>
 
-                <p>Unfortunately that did not work for me on the first try (and many
-                tries after!), until I flash that my LAN was already using the
-                192.168.2.x subnet! I switched my LAN to another subnet and everything
-                started to work. Another solution, if you can't change the LAN subnet is
-                to <a class="reference external" href=
+                <p>Unfortunately that did not work for me on the first try and many tries
+                after, until I realized that my LAN was already using the 192.168.2.x
+                subnet! I switched my LAN to another subnet and everything started to
+                work. If you can't change the LAN subnet, another solution is to
+                <a class="reference external" href=
                 "http://blog.chariotsolutions.com/2013/03/configuring-network-used-by-mac-os-x.html">
                 change the default address</a> used by the Mac Internet sharing.</p>
               </div>
 
               <div class="section" id="setting-up-a-proper-python-environment">
-                <h3>Setting up a proper python environment</h3>
+                <h3>Setting up a proper Python environment</h3>
 
-                <p>I will use mainly python to develop my application. So to work
-                comfortably I set up a few things python related (the usuel suspects:
+                <p>I will use mainly Python to develop my application. To work
+                comfortably I set up a few things Python related (the usual suspects:
                 <a class="reference external" href=
                 "http://www.pip-installer.org/">pip</a>, <a class="reference external"
                 href="http://www.virtualenv.org/">virtualenv</a>, <a class=
-                "reference external" href="http://ipython.org/">ipython</a>):</p>
+                "reference external" href="http://ipython.org/">IPython</a>):</p>
                 <pre class="literal-block">
 $ sudo easy_install pip
 $ sudo pip install virtualenv
