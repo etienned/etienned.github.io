@@ -226,6 +226,8 @@ OUTPUT_FOLDER = '..'
 #
 # Many filters are shipped with Nikola.  A list is available in the manual:
 # <http://getnikola.com/handbook.html#post-processing-filters>
+
+
 def unspace_li(data):
     data = data.decode('utf-8')
     data = re.sub('<li>\s+', '<li>', data, flags=re.UNICODE)
@@ -233,10 +235,15 @@ def unspace_li(data):
     return data.encode('utf-8')
 
 
+def comment_cdata(data):
+    data = data.decode('utf-8')
+    data = re.sub('([^/]{2})<!\[CDATA\[', '\g<1>//<![CDATA[', data, flags=re.UNICODE)
+    data = re.sub('([^/]{2})\]\]>', '\g<1>//]]>', data, flags=re.UNICODE)
+    return data.encode('utf-8')
 
 
 FILTERS = {
-    ".html": [filters.tidy, apply_to_file(unspace_li)],
+    ".html": [filters.tidy, apply_to_file(unspace_li), apply_to_file(comment_cdata)],
     ".jpg": [resizer.resize, 'echo %s | xargs -I{} jpegtran -optimize -progressive -outfile "{}" "{}"'],
     ".css": ['echo %s | xargs -I{} java -jar /usr/local/bin/yuicompressor-2.4.7.jar -o "{}" "{}"']
 }
@@ -541,7 +548,6 @@ BODY_END = """
 
   ga('create', 'UA-45703913-1', 'etienned.github.io');
   ga('send', 'pageview');
-
 </script>
 """
 
