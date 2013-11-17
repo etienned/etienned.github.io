@@ -90,7 +90,7 @@
             Project</a></h2><small><time class="published" datetime=
             "2013-11-15T20:30:03">Nov 15, 2013</time></small>
 
-            <p>This project’s goal is building a controller for my house's air exchanger
+            <p>This project’s goal is to build a controller for my house’s air exchanger
             that will optimize its utilization. It will take into account exterior and
             interior temperature and humidity to decide what the exchanger should do. In
             a second time I will add a web/phone interface to access and set the
@@ -108,7 +108,7 @@
               1.0</a>, to purify the inside air. Unfortunately the controllers that can
               work with this model are really limited (completely manual with only theses
               modes stop/slow/fast/recycle) or more targeted at managing the relative
-              humidity. Not to mention that they are all pretty ugly. I really don't have
+              humidity. Not to mention that they are all pretty ugly. I really don’t have
               any difficulties to understand why <a class="reference external" href=
               "http://www.theverge.com/2011/11/14/2559567/tony-fadell-nest-learning-thermostat">
               Tony Fadell created the Nest thermostat</a>!</p>
@@ -128,7 +128,7 @@
                 was thinking about hooking also a CO2 meter to my controller but, with
                 these facts, I think I just need to set my controller to run the
                 exchanger at least 45 min. a day from exterior air and all will be fine
-                on the CO2 side (I know that my calculations don't take in account some
+                on the CO2 side (I know that my calculations don’t take in account some
                 variables…).
               </blockquote>
 
@@ -137,11 +137,11 @@
               "http://www.aubetech.com/products/produitsDetails.php?noProduit=158&amp;noLangue=2">
               Aube thermostat</a> (TH146-P-U) that control my heating system and set it
               to control also the exchanger. I can set it to run the exchanger at a
-              minimum of <em>x</em> minutes every hour and to run it more if there's to
-              much humidity. But it’s not possible to choose the fan speed, it's always
+              minimum of <em>x</em> minutes every hour and to run it more if there’s to
+              much humidity. But it’s not possible to choose the fan speed, it’s always
               at slow. I can neither control the recycling mode.</p>
 
-              <p>Connecting the exchanger to this thermostat was not easy. There's no
+              <p>Connecting the exchanger to this thermostat was not easy. There’s no
               information on the 4 wires coming out from the exchanger (I called directly
               the manufacturer to ask for information but without success). These 4 wires
               come from a micro-controller on the exchanger board. I did some
@@ -153,8 +153,8 @@
 
               <p>About a year after I did this set up, our house had a significant water
               infiltration that probably affected the exchanger. After this event the
-              full speed was not working anymore. But I didn't use the full speed really
-              often so I can't be sure if it's the water or how I wired the controller
+              full speed was not working anymore. But I didn’t use the full speed really
+              often so I can’t be sure if it’s the water or how I wired the controller
               that did the harm. But I know that the problem is definitely in the
               micro-controller. All the rest of the board is working properly.</p>
 
@@ -188,8 +188,8 @@
               you need to buy an SD card for the later). Some advantages of the BBB are
               more IO (some analogs!) and a faster CPU. Having flash memory instead of
               the SD card can be an advantage or disadvantage, it depends of the use. For
-              me, it doesn't really matter. Some disadvantages are a less powerful video
-              output (it doesn't matter for my project, there's no display) and a smaller
+              me, it doesn’t really matter. Some disadvantages are a less powerful video
+              output (it doesn’t matter for my project, there’s no display) and a smaller
               community. <em>Makezine</em> did a more <a class="reference external" href=
               "http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/">
               thoughtful comparison</a>.</p>
@@ -214,12 +214,12 @@
                 the Raspberry Pi. I chooses <a class="reference external" href=
                 "http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2">
                 Occidentalis 0.2</a> from <a class="reference external" href=
-                "http://www.adafruit.com/">Adafruit</a>. It's derived from <a class=
+                "http://www.adafruit.com/">Adafruit</a>. It’s derived from <a class=
                 "reference external" href="http://www.raspbian.org/">Raspbian</a>. For me
                 the good things about Occidentalis are:</p>
 
                 <ul class="simple">
-                  <li>Like Raspbian, it's based on Debian, my preferred Linux
+                  <li>Like Raspbian, it’s based on Debian, my preferred Linux
                   distro.</li>
 
                   <li>Unlike Raspbian, the SSH daemon is already activated.</li>
@@ -231,9 +231,9 @@
                   <li>Many IO kernel modules are included.</li>
                 </ul>
 
-                <p>The most important things for me are SSH and Bonjour. I don't have any
+                <p>The most important things for me are SSH and Bonjour. I don’t have any
                 display that I can plug to the RPi, so I need to be able to do everything
-                via SSH from the beginning. With Bonjour I don't have to find/guess its
+                via SSH from the beginning. With Bonjour I don’t have to find/guess its
                 IP address, I can just connect to <em>raspberrypi.local</em>.</p>
               </div>
 
@@ -253,8 +253,8 @@
                 <h4>Expanding the SD card</h4>
 
                 <p>The SD card partition will be the same size as the distro image size
-                instead of the card size. It's a good idea to expand the root partition
-                to fill the SD card. It's easy to do by choosing the
+                instead of the card size. It’s a good idea to expand the root partition
+                to fill the SD card. It’s easy to do by choosing the
                 <em>expand_rootfs</em> menu option of the <a class="reference external"
                 href="http://elinux.org/RPi_raspi-config">raspi-config</a> script.</p>
               </div>
@@ -262,10 +262,10 @@
               <div class="section" id="upgrading-the-system">
                 <h4>Upgrading the system</h4>
 
-                <p>I think it's good idea to upgrade the OS:</p>
-                <pre class="literal-block">
-sudo apt-get update
-sudo apt-get upgrade
+                <p>I think it’s good idea to upgrade the OS:</p>
+                <pre class="code bash literal-block">
+<span class="nv">$ </span>sudo apt-get update
+<span class="nv">$ </span>sudo apt-get upgrade
 </pre>
               </div>
 
@@ -274,26 +274,28 @@ sudo apt-get upgrade
 
                 <p>There are two things to adjust (at least in my case):</p>
 
-                <ol class="arabic">
-                  <li><p class="first">By default my RPi was using only 256 MB of the
-                    512 MB. I had to upgrade the firmware to access all the memory:</p>
-                    <pre class="literal-block">
-sudo rpi-update
-</pre></li>
-
-                  <li><p class="first">Some memory is used by the GPU. It's possible to
-                    change how much memory the GPU will use. In my case, as I will not
-                    use an external display, I set it to the minimum:</p>
-                    <pre class="literal-block">
-sudo raspi-config
-</pre></li>
+                <ol class="arabic simple">
+                  <li>By default my RPi was using only 256 MB of the 512 MB. I had to
+                  upgrade the firmware to access all the memory:</li>
                 </ol>
+                <pre class="code bash literal-block">
+<span class="nv">$ </span>sudo rpi-update
+</pre>
+
+                <ol class="arabic simple" start="2">
+                  <li>Some memory is used by the GPU. It’s possible to change how much
+                  memory the GPU will use. In my case, as I will not use an external
+                  display, I set it to the minimum:</li>
+                </ol>
+                <pre class="code bash literal-block">
+<span class="nv">$ </span>sudo raspi-config
+</pre>
 
                 <p>Then choose the <em>Memory Split</em> option in the <em>Advanced
                 Options</em> option. I set the GPU memory to 16 MB, which is the
                 minimum.</p>
 
-                <p>It's also possible to <a class="reference external" href=
+                <p>It’s also possible to <a class="reference external" href=
                 "http://elinux.org/RPiconfig#Memory">set the memory to be split
                 dynamically (CMA)</a>.</p>
               </div>
@@ -303,11 +305,11 @@ sudo raspi-config
 
                 <p>As I use the Occidentalis distro, I simply have to connect like
                 this:</p>
-                <pre class="literal-block">
-$ ssh pi@rasbpberrypi.local
+                <pre class="code bash literal-block">
+<span class="nv">$ </span>ssh pi@rasbpberrypi.local
 </pre>
 
-                <p>Unfortunately I don't have a WiFi dongle on my RPi and my router is
+                <p>Unfortunately I don’t have a WiFi dongle on my RPi and my router is
                 far from my main computer. But I would like to have the RPi sitting next
                 to my main computer to ease development. A solution is to connect the
                 Ethernet cable directly in my Mac and share the Mac Internet (WiFi)
@@ -321,7 +323,7 @@ $ ssh pi@rasbpberrypi.local
                 <p>Unfortunately that did not work for me on the first try and many tries
                 after, until I realized that my LAN was already using the 192.168.2.x
                 subnet! I switched my LAN to another subnet and everything started to
-                work. If you can't change the LAN subnet, another solution is to
+                work. If you can’t change the LAN subnet, another solution is to
                 <a class="reference external" href=
                 "http://blog.chariotsolutions.com/2013/03/configuring-network-used-by-mac-os-x.html">
                 change the default address</a> used by the Mac Internet sharing.</p>
@@ -336,24 +338,24 @@ $ ssh pi@rasbpberrypi.local
                 "http://www.pip-installer.org/">pip</a>, <a class="reference external"
                 href="http://www.virtualenv.org/">virtualenv</a>, <a class=
                 "reference external" href="http://ipython.org/">IPython</a>):</p>
-                <pre class="literal-block">
-$ sudo easy_install pip
-$ sudo pip install virtualenv
-$ mkdir venv
-$ cd venv
-$ virtualenv --system-site-packages margarita
-$ cd
-$ source venv/margarita/bin/activate
-$ sudo pip install ipython
+                <pre class="code bash literal-block">
+<span class="nv">$ </span>sudo easy_install pip
+<span class="nv">$ </span>sudo pip install virtualenv
+<span class="nv">$ </span>mkdir venv
+<span class="nv">$ </span><span class="nb">cd </span>venv
+<span class="nv">$ </span>virtualenv --system-site-packages margarita
+<span class="nv">$ </span><span class="nb">cd</span>
+<span class="nv">$ </span><span class="nb">source </span>venv/margarita/bin/activate
+<span class="nv">$ </span>sudo pip install ipython
 </pre>
 
                 <p>I also installed vim because vim.tiny, installed by default, lacks too
                 many features:</p>
-                <pre class="literal-block">
-$ sudo apt-get install vim
+                <pre class="code bash literal-block">
+<span class="nv">$ </span>sudo apt-get install vim
 </pre>
 
-                <p>That's enough for now. Next time I will write about reading the
+                <p>That’s enough for now. Next time I will write about reading the
                 sensors and controlling the relays.</p>
               </div>
             </div>
