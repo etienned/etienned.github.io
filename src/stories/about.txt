@@ -11,9 +11,9 @@
    :height: 128
    :alt: Etienne Desautels’ portrait
 
-I’m a designer and developer living in Montreal and father of 3 young girls.
+I’m a designer and developer living in Montreal and the father of three young girls.
 I develop websites, multimedia installations and create graphic and exhibit designs.
-As I like elegance, Python is my prefer programming language.
+As I like elegance, Python is my preferred programming language.
 
 More stuff related to me:
 
