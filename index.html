@@ -278,22 +278,20 @@
 
                 <p>There are two things to adjust (at least in my case):</p>
 
-                <ol class="arabic simple">
-                  <li>By default my RPi was using only 256 MB of the 512 MB. I had to
-                  upgrade the firmware to access all the memory:</li>
-                </ol>
-                <pre class="code bash literal-block">
+                <ol class="arabic">
+                  <li><p class="first">By default my RPi was using only 256 MB of the
+                    512 MB. I had to upgrade the firmware to access all the memory:</p>
+                    <pre class="code bash literal-block">
 <span class="nv">$ </span>sudo rpi-update
-</pre>
+</pre></li>
 
-                <ol class="arabic simple" start="2">
-                  <li>Some memory is used by the GPU. It’s possible to change how much
-                  memory the GPU will use. In my case, as I will not use an external
-                  display, so I set it to the minimum:</li>
-                </ol>
-                <pre class="code bash literal-block">
+                  <li><p class="first">Some memory is used by the GPU. It’s possible to
+                    change how much memory the GPU will use. In my case, as I will not
+                    use an external display, so I set it to the minimum:</p>
+                    <pre class="code bash literal-block">
 <span class="nv">$ </span>sudo raspi-config
-</pre>
+</pre></li>
+                </ol>
 
                 <p>Then choose the <em>Memory Split</em> option in the <em>Advanced
                 Options</em> option. I set the GPU memory to 16 MB, which is the

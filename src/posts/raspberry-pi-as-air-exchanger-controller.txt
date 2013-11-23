@@ -91,15 +91,15 @@ There are two things to adjust (at least in my case):
 
 1. By default my RPi was using only 256 MB of the 512 MB. I had to upgrade the firmware to access all the memory:
 
-.. code:: bash
+   .. code:: bash
 
-    $ sudo rpi-update
+       $ sudo rpi-update
 
 2. Some memory is used by the GPU. It’s possible to change how much memory the GPU will use. In my case, as I will not use an external display, so I set it to the minimum:
 
-.. code:: bash
+   .. code:: bash
 
-    $ sudo raspi-config
+       $ sudo raspi-config
 
 Then choose the *Memory Split* option in the *Advanced Options* option. I set the GPU memory to 16 MB, which is the minimum.
 
