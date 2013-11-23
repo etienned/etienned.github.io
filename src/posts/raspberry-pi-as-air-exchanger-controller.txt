@@ -1,9 +1,12 @@
 .. link:
 .. description: Building a controller for an air exchanger from a Raspberry Pi
 .. tags: Raspberry Pi, Python, Margarita
-.. date: 2013/11/15 20:30:03
-.. title: The Margarita Project
-.. slug: the-margarita-project
+.. date: 2013/11/23 10:30:03
+.. title: Using a Raspberry Pi as an air exchanger controller
+.. slug: raspberry-pi-as-air-exchanger-controller
+
+The Margarita project
+=====================
 
 This project’s goal is to build a controller for my house’s air exchanger that will optimize its utilization. It will take into account exterior and interior temperature and humidity to decide what the exchanger should do. In a second time I will add a web/phone interface to access and set the controller. In fact, I have a lot of other ideas and goals, but better to not make too many promises!
 

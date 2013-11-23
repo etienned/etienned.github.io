@@ -6,70 +6,58 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://etienned.github.io/</loc>
-  <lastmod>2013-11-14</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/2013/</loc>
-  <lastmod>2013-11-14</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/about/</loc>
-  <lastmod>2013-11-14</lastmod>
+  <lastmod>2013-11-18</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/archive.html</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/categories/</loc>
-  <lastmod>2013-11-14</lastmod>
- </url>
- <url>
-  <loc>http://etienned.github.io/categories/hrv.html</loc>
-  <lastmod>2013-11-14</lastmod>
- </url>
- <url>
-  <loc>http://etienned.github.io/categories/hrv.xml</loc>
-  <lastmod>2013-11-14</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/categories/margarita.html</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/categories/margarita.xml</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/categories/python.html</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/categories/python.xml</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/categories/raspberry-pi.html</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/categories/raspberry-pi.xml</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/listings/</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
-  <loc>http://etienned.github.io/listings/.DS_Store.html</loc>
-  <lastmod>2013-11-17</lastmod>
- </url>
- <url>
-  <loc>http://etienned.github.io/posts/the-margarita-project/</loc>
-  <lastmod>2013-11-14</lastmod>
+  <loc>http://etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/</loc>
+  <lastmod>2013-11-23</lastmod>
  </url>
  <url>
   <loc>http://etienned.github.io/rss.xml</loc>
-  <lastmod>2013-11-17</lastmod>
+  <lastmod>2013-11-23</lastmod>
  </url>
 </urlset>
