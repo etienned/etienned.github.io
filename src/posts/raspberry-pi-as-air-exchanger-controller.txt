@@ -19,7 +19,7 @@ I suffer from strong allergies so, a few years ago, I added to my house an air e
 
 What is needed for an exchanger targeted at purifying the air is to run it just enough to replace all the house’s air every day and maintaining a good humidity level at the same time. Not too dry in winter, not too humid in summer.
 
-    In fact, a human at rest will *consume* around 400 cubic feet of air a day (0.27 CFM). We are 5 humans living in my house. Running the exchanger at slow speed (45 CFM) at least 45 min. each day should exit all the C02 we have created. It takes 12 hours at this speed to change all the house’s air volume (30 000 cu ft). So, if I change all house’s air every day, CO2 level should be kept low enough. At the beginning I was thinking about hooking also a CO2 meter to my controller but, with these facts, I think I just need to set my controller to run the exchanger at least 45 min. a day from exterior air and all will be fine on the CO2 side (I know that my calculations don’t take in account some variables…).
+    In fact, a human at rest will *consume* around 400 cubic feet of air a day (0.27 CFM). We are 5 humans living in my house. Running the exchanger at slow speed (45 CFM) at least 45 min. each day should exit all the CO\ :sub:`2` we have created. It takes 12 hours at this speed to change all the house’s air volume (30,000 cu ft). So, if I change all house’s air every day, CO\ :sub:`2` level should be kept low enough. At the beginning I was thinking about hooking also a CO\ :sub:`2` meter to my controller but, with these facts, I think I just need to set my controller to run the exchanger at least 45 min. a day from exterior air and all will be fine on the CO\ :sub:`2` side (I know that my calculations don’t take in account some variables…).
 
 My current solution is to use my costly `Aube thermostat <http://www.aubetech.com/products/produitsDetails.php?noProduit=158&noLangue=2>`_ (TH146-P-U) that control my heating system and set it to control also the exchanger. I can set it to run the exchanger at a minimum of *x* minutes every hour and to run it more if there’s too much humidity. But it’s not possible to choose the fan speed, it’s always set at slow. I can neither control the recycling mode.
 
@@ -29,7 +29,7 @@ About a year after I did this set up, our house had a significant water infiltra
 
 So, this left me with two options:
 
-- Change the exchanger board for around 150$ and keep my current setup.
+- Change the exchanger board for around $150 and keep my current setup.
 - Keep the old board and hook it to a custom controller that will fulfill my needs better that my current setup.
 
 I chose the second option.
@@ -40,7 +40,7 @@ Choosing the controller hardware
 
 The first time I heard about the `Raspberry Pi <http://www.raspberrypi.org/>`_ I immediately saw that was the perfect fit for my controller project. It would be easy for me to program the controller in Python, create a Phone interface by running a web server and interface it with the exchanger and some sensors with the GPIO. So, I bought one.
 
-Just after buying it I stumbled on the `BeagleBone Black <http://beagleboard.org/Products/BeagleBone%20Black>`_ and it definitely look like another really good candidate for my project. The price is mostly the same (45$ for the BBB vs 35$ for RPi, but you need to buy an SD card for the later). Some advantages of the BBB are more IO (some analogs!) and a faster CPU. Having flash memory instead of the SD card can be an advantage or disadvantage, it depends of the use. For me, it doesn’t really matter. Some disadvantages are a less powerful video output (it doesn’t matter for my project, there’s no display) and a smaller community. *Makezine* did a more `thoughtful comparison <http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/>`_.
+Just after buying it I stumbled on the `BeagleBone Black <http://beagleboard.org/Products/BeagleBone%20Black>`_ and it definitely look like another really good candidate for my project. The price is mostly the same ($45 for the BBB vs $35 for RPi, but you need to buy an SD card for the later). Some advantages of the BBB are more IO (some analogs!) and a faster CPU. Having flash memory instead of the SD card can be an advantage or disadvantage, it depends of the use. For me, it doesn’t really matter. Some disadvantages are a less powerful video output (it doesn’t matter for my project, there’s no display) and a smaller community. *Makezine* did a more `thoughtful comparison <http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/>`_.
 
 In my case a micro-controller, like the `Arduino <http://www.arduino.cc/>`_, is not a good match because I need to be able to run a web server. I found only a few micro-controllers that can run a web server like the `Atmega88 <http://www.atmel.ca/devices/ATMEGA88.aspx>`_, but the learning curve and complexity is a big disadvantage for no apparent advantage in return in my case.
 
