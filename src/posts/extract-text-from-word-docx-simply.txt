@@ -1,0 +1,14 @@
+.. link:
+.. description: Extract text from Word files (docx) in Python without dependencies
+.. tags: Python
+.. date: 2013/11/26 10:01:59
+.. title: Extract text from Word files (docx) simply
+.. slug: extract-text-from-word-docx-simply
+
+If you want to extract the text content of a Word file there are a few `solutions <http://stackoverflow.com/questions/42482/best-way-to-extract-text-from-a-word-doc-without-using-com-automation>`_ to do this in Python. Unfortunately most of these solutions have dependencies or need to run an external command in a subprocess or are heavy/complex, using an office suite, etc. I find that the best solution among those in the Stackoverflow page is `python-docx <https://github.com/mikemaccana/python-docx>`_. But using it bring two dependencies: *python-docx* itself and `lxml <http://lxml.de/>`_. Installing *python-docx* is not a big problem. Unfortunately *lxml* is sometimes hard to install or, at the minimum, requires compilation.
+
+To avoid that, inspired by *python-docx*, I created a simple function to extract text from *.docx* files that do not require dependencies, using only the standard library. So it’s easy to incorporate it in any Python project.
+
+Is there any way to improve it?
+
+.. gist:: 7539105
