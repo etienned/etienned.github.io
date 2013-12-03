@@ -163,7 +163,7 @@ header {
 }
 
 .main-nav h1, .main-nav .h1 {
-    font-size: 35px;
+    font-size: 2.059em;
     margin-bottom: 0;
     margin-top: 20px;
 }
@@ -172,14 +172,14 @@ header {
     display: block;
     color: #666666;
     font-family: Georgia, Times, "Times New Roman", serif;
-    font-size: 14px;
-    line-height: 17px;
-    margin-top: 2px;
+    font-size: 0.4em;
+    line-height: 1.214;
+    margin-top: 0.143em;
 }
 
 .sub-header {
     width: 190px;
-    margin-top: 30px;
+    margin-top: 1.765em;
 }
 
 .sub-header ul {
@@ -200,10 +200,27 @@ header {
 }
 
 nav {
-    margin-bottom: 16px;
+    margin-bottom: 0.941em;
 }
 
 @media (max-width: 549px) {
+    .logo {
+        float: right;
+        margin-right: 15px;
+    }
+    .logo img {
+        width: 180px;
+    }
+    .main-nav {
+        float: left;
+    }
+    .main-nav h1, .main-nav .h1 {
+        margin-top: 0;
+    }
+    header {
+        font-size: 0.878em;
+        min-height: 0;
+    }
     nav {
         margin-bottom: 0;
     }
@@ -213,10 +230,19 @@ nav {
     }
 }
 
+@media (max-width: 435px) {
+    .logo {
+        float: left;
+    }
+    .logo img {
+        width: 62px;
+        margin-bottom: 5px;
+    }
+}
+
 nav a {
     font-family: 'chunkfiveroman', Times, "Times New Roman", serif;
     color: #4D4D4D;
-    font-size: 17px;
 }
 
 nav a:hover, nav a:focus {
