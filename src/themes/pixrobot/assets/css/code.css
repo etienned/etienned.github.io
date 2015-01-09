@@ -83,7 +83,7 @@ pre.code, .code  {
 .code .kn, .postbox .gist-syntax .pl-kn { color: #8abeb7 } /* Keyword.Namespace */
 .code .kp, .postbox .gist-syntax .pl-kp { color: #b294bb } /* Keyword.Pseudo */
 .code .kr, .postbox .gist-syntax .pl-kr { color: #b294bb } /* Keyword.Reserved */
-.code .kt, .postbox .gist-syntax .pl-kt { color: #f0c674 } /* Keyword.Type */
+.code .kt, .postbox .gist-syntax .pl-kt, .postbox .gist-syntax .pl-s3 { color: #f0c674 } /* Keyword.Type */
 .code .ld, .postbox .gist-syntax .pl-ld { color: #b5bd68 } /* Literal.Date */
 .code .m, .postbox .gist-syntax .pl-m { color: #de935f } /* Literal.Number */
 .code .s, .postbox .gist-syntax .pl-s { color: #b5bd68 } /* Literal.String */
@@ -93,7 +93,7 @@ pre.code, .code  {
 .code .no, .postbox .gist-syntax .pl-no { color: #cc6666 } /* Name.Constant */
 .code .nd, .postbox .gist-syntax .pl-nd { color: #8abeb7 } /* Name.Decorator */
 .code .ni, .postbox .gist-syntax .pl-ni { color: #c5c8c6 } /* Name.Entity */
-.code .ne, .postbox .gist-syntax .pl-ne, .postbox .gist-syntax .pl-s3 { color: #cc6666; font-weight: normal; } /* Name.Exception */
+.code .ne, .postbox .gist-syntax .pl-ne { color: #cc6666; font-weight: normal; } /* Name.Exception */
 .code .nf, .postbox .gist-syntax .pl-nf, .postbox .gist-syntax .pl-en { color: #81a2be; font-weight: normal; } /* Name.Function */
 .code .nl, .postbox .gist-syntax .pl-nl { color: #c5c8c6 } /* Name.Label */
 .code .nn, .postbox .gist-syntax .pl-nn { color: #f0c674 } /* Name.Namespace */
