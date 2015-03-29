@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 import re
 import time
 
-from nikola import filters
-from nikola.filters import apply_to_file
+from nikola.filters import typogrify_sans_widont, runinplace, yui_compressor, apply_to_text_file
+
+from lxml import html
 
 import resizer
 
@@ -194,7 +195,9 @@ COMPILERS = {
 # "rsync -rav output/* joe@my.site:/srv/www/site"
 # And then do a backup, or ping pingomatic.
 # To do manual deployment, set it to []
-DEPLOY_COMMANDS = ["./deploy.py"]
+DEPLOY_COMMANDS = {
+    'default': ["./deploy.py"]
+}
 
 # Where the output site should be located
 # If you don't use an absolute path, it will be considered as relative
@@ -228,24 +231,35 @@ OUTPUT_FOLDER = '..'
 # <http://getnikola.com/handbook.html#post-processing-filters>
 
 
-def unspace_li(data):
-    data = data.decode('utf-8')
-    data = re.sub('<li>\s+', '<li>', data, flags=re.UNICODE)
-    data = re.sub('\s+</li>', '</li>', data, flags=re.UNICODE)
-    return data.encode('utf-8')
+@apply_to_text_file
+def remove_rest_code_anchor(data):
+    data = re.sub('<a name="rest_code_[a-z0-9\-]+"></a>', '', data, flags=re.UNICODE)
+    return data
 
 
-def comment_cdata(data):
-    data = data.decode('utf-8')
-    data = re.sub('([^/]{2})<!\[CDATA\[', '\g<1>//<![CDATA[', data, flags=re.UNICODE)
-    data = re.sub('([^/]{2})\]\]>', '\g<1>//]]>', data, flags=re.UNICODE)
-    return data.encode('utf-8')
+def decrease_headings_on_index(fname):
+    if fname == '../index.html':
+        tree = html.parse(fname)
+        root = tree.getroot()
+        for level in (5, 4, 3, 2, 1):
+            for element in root.cssselect('.section h{0}'.format(level)):
+                element.tag = 'h{0}'.format(level + 1)
+        tree.write(fname, encoding='utf8', method='html', pretty_print=True)
+
+
+def jpegtran(infile):
+    return runinplace(r'jpegtran -optimize -progressive -outfile %2 %1', infile)
 
 
 FILTERS = {
-    ".html": [filters.tidy, apply_to_file(unspace_li), apply_to_file(comment_cdata)],
-    ".jpg": [resizer.resize, 'echo %s | xargs -I{} jpegtran -optimize -progressive -outfile "{}" "{}"'],
-    ".css": ['echo %s | xargs -I{} java -jar /usr/local/bin/yuicompressor-2.4.7.jar -o "{}" "{}"']
+    ".html": [
+        decrease_headings_on_index,
+        remove_rest_code_anchor,
+        typogrify_sans_widont,
+        'tidy -modify -indent -asxhtml -utf8 -quiet --tidy-mark no --wrap 0 --doctype html5 %s'
+    ],
+    ".jpg": [resizer.resize, jpegtran],
+    ".css": [yui_compressor]
 }
 
 # Create a gzipped copy of each generated file. Cheap server-side optimization.
@@ -305,7 +319,7 @@ DATE_FORMAT = '%b %d, %Y'
 # http://www.netmagazine.com/features/create-perfect-favicon
 FAVICONS = (
     ("icon", "/favicon.ico", "16x16"),
-#     ("icon", "/icon_128x128.png", "128x128"),
+    # ("icon", "/icon_128x128.png", "128x128"),
 )
 
 # Show only teasers in the index pages? Defaults to False.
@@ -405,9 +419,9 @@ DEPLOY_DRAFTS = False
 # MATHJAX_CONFIG = ""
 
 # If you are using the compile-ipynb plugin, just add this one:
-#MATHJAX_CONFIG = """
-#<script type="text/x-mathjax-config">
-#MathJax.Hub.Config({
+# MATHJAX_CONFIG = """
+# <script type="text/x-mathjax-config">
+# MathJax.Hub.Config({
 #    tex2jax: {
 #        inlineMath: [ ['$','$'], ["\\\(","\\\)"] ],
 #        displayMath: [ ['$$','$$'], ["\\\[","\\\]"] ]
@@ -416,14 +430,16 @@ DEPLOY_DRAFTS = False
 #    "HTML-CSS": {
 #        styles: {'.MathJax_Display': {"margin": 0}}
 #    }
-#});
-#</script>
-#"""
+# });
+# </script>
+# """
 
 # What MarkDown extensions to enable?
 # You will also get gist, nikola and podcast because those are
 # done in the code, hope you don't mind ;-)
 # MARKDOWN_EXTENSIONS = ['fenced_code', 'codehilite']
+
+WRITE_TAG_CLOUD = False
 
 # Social buttons. This is sample code for AddThis (which was the default for a
 # long time). Insert anything you want here, or even make it empty.
@@ -441,10 +457,10 @@ SOCIAL_BUTTONS_CODE = """"""
 # <!-- End of social buttons -->
 # """
 
-# Hide link to source for the posts?
-HIDE_SOURCELINK = True
+# Show link to source for the posts?
+SHOW_SOURCELINK = False
 # Copy the source files for your pages?
-# Setting it to False implies HIDE_SOURCELINK = True
+# Setting it to False implies SHOW_SOURCELINK = False
 COPY_SOURCES = False
 
 # Modify the number of Post per Index Page
@@ -468,30 +484,30 @@ COPY_SOURCES = False
 # This search form works for any site and looks good in the "site" theme where
 # it appears on the navigation bar:
 #
-#SEARCH_FORM = """
-#<!-- Custom search -->
-#<form method="get" id="search" action="http://duckduckgo.com/"
+# SEARCH_FORM = """
+# <!-- Custom search -->
+# <form method="get" id="search" action="http://duckduckgo.com/"
 # class="navbar-form pull-left">
-#<input type="hidden" name="sites" value="%s"/>
-#<input type="hidden" name="k8" value="#444444"/>
-#<input type="hidden" name="k9" value="#D51920"/>
-#<input type="hidden" name="kt" value="h"/>
-#<input type="text" name="q" maxlength="255"
+# <input type="hidden" name="sites" value="%s"/>
+# <input type="hidden" name="k8" value="#444444"/>
+# <input type="hidden" name="k9" value="#D51920"/>
+# <input type="hidden" name="kt" value="h"/>
+# <input type="text" name="q" maxlength="255"
 # placeholder="Search&hellip;" class="span2" style="margin-top: 4px;"/>
-#<input type="submit" value="DuckDuckGo Search" style="visibility: hidden;" />
-#</form>
-#<!-- End of custom search -->
-#""" % SITE_URL
+# <input type="submit" value="DuckDuckGo Search" style="visibility: hidden;" />
+# </form>
+# <!-- End of custom search -->
+# """ % SITE_URL
 #
 # If you prefer a google search form, here's an example that should just work:
-#SEARCH_FORM = """
-#<!-- Custom search with google-->
-#<form id="search" action="http://google.com/search" method="get" class="navbar-form pull-left">
-#<input type="hidden" name="q" value="site:%s" />
-#<input type="text" name="q" maxlength="255" results="0" placeholder="Search"/>
-#</form>
-#<!-- End of custom search -->
-#""" % SITE_URL
+# SEARCH_FORM = """
+# <!-- Custom search with google-->
+# <form id="search" action="http://google.com/search" method="get" class="navbar-form pull-left">
+# <input type="hidden" name="q" value="site:%s" />
+# <input type="text" name="q" maxlength="255" results="0" placeholder="Search"/>
+# </form>
+# <!-- End of custom search -->
+# """ % SITE_URL
 
 # Also, there is a local search plugin you can use, based on Tipue, but it requires setting several
 # options:
@@ -506,11 +522,11 @@ COPY_SOURCES = False
 # <script type="text/javascript" src="/assets/js/tipuesearch.js"></script>
 # <script type="text/javascript">
 # $(document).ready(function() {
-    # $('#tipue_search_input').tipuesearch({
-        # 'mode': 'json',
-        # 'contentLocation': '/assets/js/tipuesearch_content.json',
-        # 'showUrl': false
-    # });
+#    $('#tipue_search_input').tipuesearch({
+#        'mode': 'json',
+#        'contentLocation': '/assets/js/tipuesearch_content.json',
+#        'showUrl': false
+#    });
 # });
 # </script>
 # """
@@ -540,7 +556,7 @@ EXTRA_HEAD_DATA = """
 # Google analytics or whatever else you use. Added to the bottom of <body>
 # in the default template (base.tmpl).
 BODY_END = """
-<script>
+<script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

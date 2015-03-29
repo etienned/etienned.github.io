@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
-
   <title>Using a Raspberry Pi as an air exchanger controller | Etienne’s blog</title>
-  <meta name="description" content=
-  "Building a controller for an air exchanger from a Raspberry Pi" />
+  <meta name="description" content="Building a controller for an air exchanger from a Raspberry Pi" />
   <meta name="author" content="Etienne Desautels" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../../assets/css/all-nocdn.css" rel="stylesheet" /><!--[if IE 10]>
@@ -20,326 +17,152 @@
       <script type="text/javascript" src="/assets/js/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
   <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
   <div class="container main">
     <!-- Menu -->
-
     <div class="row">
       <header>
-        <a href="../../" class="logo"><img src="../../assets/img/pixrobot.png" alt=
-        "The Pixrobot!" width="253" height="204" /></a>
-
+        <a href="http://etienned.github.io/" class="logo"><img src="../../assets/img/pixrobot.png" alt="The Pixrobot!" width="253" height="204" /></a>
         <div class="main-nav">
-          <a href="../../">
+          <a href="http://etienned.github.io/">
           <div class="h1">
             Etienne’s blog <small>Python, technology and maybe more</small>
           </div></a>
-
           <div class="sub-header">
             <nav>
               <ul>
-                <li><a href="../../about/">About</a></li>
-
-                <li><a href="../../archive.html">Blog</a></li>
-
-                <li><a href="../../categories/index.html">Tags</a></li>
+                <li>
+                  <a href="../../about/">About</a>
+                </li>
+                <li>
+                  <a href="../../archive.html">Blog</a>
+                </li>
+                <li>
+                  <a href="../../categories/index.html">Tags</a>
+                </li>
               </ul>
             </nav>
-
             <ul class="social-icons">
-              <li><a href=
-                "http://www.facebook.com/sharer/sharer.php?u=http%3A//etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/"
-                class="fb-link" title="Share on Facebook">Facebook</a></li>
-
-              <li><a href="http://twitter.com/share" class="twitter-link" title=
-                "Share on Twitter">Twitter</a></li>
-
-              <li><a href=
-                "http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A//etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/&amp;title=Using%20a%20Raspberry%20Pi%20as%20an%20air%20exchanger%20controller"
-                class="linkedin-link" title="Share on LinkedIn">LinkedIn</a></li>
-
-              <li><a href=
-                "https://plus.google.com/share?url=http%3A//etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/"
-                class="google-link" title="Share on Google+">Google+</a></li>
-
-              <li><a href="../../rss.xml" class="rss-link" title="RSS Feed">RSS</a></li>
+              <li>
+                <a href="http://www.facebook.com/sharer/sharer.php?u=http%3A//etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/" class="fb-link" title="Share on Facebook">Facebook</a>
+              </li>
+              <li>
+                <a href="http://twitter.com/share" class="twitter-link" title="Share on Twitter">Twitter</a>
+              </li>
+              <li>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A//etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/&amp;title=Using%20a%20Raspberry%20Pi%20as%20an%20air%20exchanger%20controller" class="linkedin-link" title="Share on LinkedIn">LinkedIn</a>
+              </li>
+              <li>
+                <a href="https://plus.google.com/share?url=http%3A//etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/" class="google-link" title="Share on Google+">Google+</a>
+              </li>
+              <li>
+                <a href="../../rss.xml" class="rss-link" title="RSS Feed">RSS</a>
+              </li>
             </ul>
           </div>
         </div>
       </header>
     </div><!-- End of Menu -->
-
     <div class="row">
       <div class="col-lg-9 col-lg-offset-3 col-md-8 col-md-offset-4 col-sm-12 col-xs-12">
         <!--Body content-->
-
         <div class="body-content">
           <div class="postbox">
-            <h1>Using a Raspberry Pi as an air exchanger
-            controller</h1><small><time class="published" datetime=
-            "2013-11-23T10:30:03">Nov 23, 2013</time><a class="tag" href=
-            "../../categories/raspberry-pi.html"><span class="badge badge-info">Raspberry
-            Pi</span></a> <a class="tag" href="../../categories/python.html"><span class=
-            "badge badge-info">Python</span></a> <a class="tag" href=
-            "../../categories/margarita.html"><span class=
-            "badge badge-info">Margarita</span></a></small>
-
-            <div class="section" id="the-margarita-project">
-              <h2>The Margarita project</h2>
-
-              <p>This project’s goal is to build a controller for my house’s air
-              exchanger that will optimize its utilization. It will take into account
-              exterior and interior temperature and humidity to decide what the exchanger
-              should do. In a second time I will add a web/phone interface to access and
-              set the controller. In fact, I have a lot of other ideas and goals, but
-              better to not make too many promises!</p><!-- TEASER_END -->
-            </div>
-
-            <div class="section" id="the-problem-and-the-current-situation">
-              <h2>The problem and the current situation</h2>
-
-              <p>I suffer from strong allergies so, a few years ago, I added to my house
-              an air exchanger with <a class="reference external" href=
-              "http://en.wikipedia.org/wiki/HEPA">HEPA</a> filter, a <a class=
-              "reference external" href=
-              "http://www.venmar.ca/61-air-exchangers-thh-1-0.html">Venmar/VanEE THH
-              1.0</a>, to purify the inside air. Unfortunately the controllers that can
-              work with this model are really limited (completely manual with only theses
-              modes stop/slow/fast/recycle) or more targeted at managing the relative
-              humidity. Not to mention that they are all pretty ugly. I really don’t have
-              any difficulties to understand why <a class="reference external" href=
-              "http://www.theverge.com/2011/11/14/2559567/tony-fadell-nest-learning-thermostat">
-              Tony Fadell created the Nest thermostat</a>!</p>
-
-              <p>What is needed for an exchanger targeted at purifying the air is to run
-              it just enough to replace all the house’s air every day and maintaining a
-              good humidity level at the same time. Not too dry in winter, not too humid
-              in summer.</p>
-
-              <blockquote>
-                In fact, a human at rest will <em>consume</em> around 400 cubic feet of
-                air a day (0.27 CFM). We are 5 humans living in my house. Running the
-                exchanger at slow speed (45 CFM) at least 45 min. each day should exit
-                all the CO<sub>2</sub> we have created. It takes 12 hours at this speed
-                to change all the house’s air volume (30,000 cu ft). So, if I change all
-                house’s air every day, CO<sub>2</sub> level should be kept low enough. At
-                the beginning I was thinking about hooking also a CO<sub>2</sub> meter to
-                my controller but, with these facts, I think I just need to set my
-                controller to run the exchanger at least 45 min. a day from exterior air
-                and all will be fine on the CO<sub>2</sub> side (I know that my
-                calculations don’t take in account some variables…).
-              </blockquote>
-
-              <p>My current solution is to use my costly <a class="reference external"
-              href=
-              "http://www.aubetech.com/products/produitsDetails.php?noProduit=158&amp;noLangue=2">
-              Aube thermostat</a> (TH146-P-U) that control my heating system and set it
-              to control also the exchanger. I can set it to run the exchanger at a
-              minimum of <em>x</em> minutes every hour and to run it more if there’s too
-              much humidity. But it’s not possible to choose the fan speed, it’s always
-              set at slow. I can neither control the recycling mode.</p>
-
-              <p>Connecting the exchanger to this thermostat was not easy. There’s no
-              information on the 4 wires coming out from the exchanger (I called directly
-              the manufacturer to ask for information but without success). These 4 wires
-              come from a micro-controller on the exchanger board. I did some
-              investigations and found that when 2 of the 4 wires are connected together
-              the exchanger stop. So I added a relay between the thermostat relay and the
-              exchanger to reverse the relay action. Unfortunately, with this setup, if I
-              want to run the exchanger at full speed I still need to go in the basement
-              and turn the button on the machine.</p>
-
-              <p>About a year after I did this set up, our house had a significant water
-              infiltration that probably affected the exchanger. After this event the
-              full speed was not working anymore. But I didn’t use the full speed really
-              often so I can’t be sure if it’s the water or how I wired the controller
-              that did the harm. But I know that the problem is definitely in the
-              micro-controller. All the rest of the board is working properly.</p>
-
-              <p>So, this left me with two options:</p>
-
-              <ul class="simple">
-                <li>Change the exchanger board for around $150 and keep my current
-                setup.</li>
-
-                <li>Keep the old board and hook it to a custom controller that will
-                fulfill my needs better that my current setup.</li>
-              </ul>
-
-              <p>I chose the second option.</p>
-            </div>
-
-            <div class="section" id="choosing-the-controller-hardware">
-              <h2>Choosing the controller hardware</h2>
-
-              <p>The first time I heard about the <a class="reference external" href=
-              "http://www.raspberrypi.org/">Raspberry Pi</a> I immediately saw that was
-              the perfect fit for my controller project. It would be easy for me to
-              program the controller in Python, create a Phone interface by running a web
-              server and interface it with the exchanger and some sensors with the GPIO.
-              So, I bought one.</p>
-
-              <p>Just after buying it I stumbled on the <a class="reference external"
-              href="http://beagleboard.org/Products/BeagleBone%20Black">BeagleBone
-              Black</a> and it definitely look like another really good candidate for my
-              project. The price is mostly the same ($45 for the BBB vs $35 for RPi, but
-              you need to buy an SD card for the later). Some advantages of the BBB are
-              more IO (some analogs!) and a faster CPU. Having flash memory instead of
-              the SD card can be an advantage or disadvantage, it depends of the use. For
-              me, it doesn’t really matter. Some disadvantages are a less powerful video
-              output (it doesn’t matter for my project, there’s no display) and a smaller
-              community. <em>Makezine</em> did a more <a class="reference external" href=
-              "http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/">
-              thoughtful comparison</a>.</p>
-
-              <p>In my case a micro-controller, like the <a class="reference external"
-              href="http://www.arduino.cc/">Arduino</a>, is not a good match because I
-              need to be able to run a web server. I found only a few micro-controllers
-              that can run a web server like the <a class="reference external" href=
-              "http://www.atmel.ca/devices/ATMEGA88.aspx">Atmega88</a>, but the learning
-              curve and complexity is a big disadvantage for no apparent advantage in
-              return in my case.</p>
-            </div>
-
-            <div class="section" id="setting-up-the-raspberry-pi">
-              <h2>Setting up the Raspberry Pi</h2>
-
-              <div class="section" id="choosing-a-linux-distribution">
-                <h3>Choosing a Linux distribution</h3>
-
-                <p>There are <a class="reference external" href=
-                "http://elinux.org/RPi_Distributions">many Linux distributions</a> for
-                the Raspberry Pi. I chose <a class="reference external" href=
-                "http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2">
-                Occidentalis 0.2</a> from <a class="reference external" href=
-                "http://www.adafruit.com/">Adafruit</a>. It’s derived from <a class=
-                "reference external" href="http://www.raspbian.org/">Raspbian</a>. For me
-                the good things about Occidentalis are:</p>
-
+            <h1>Using a Raspberry Pi as an air exchanger controller</h1><small><time class="published" datetime="2013-11-23T10:30:03+00:00">Nov 23, 2013</time> <a class="tag" href="../../categories/margarita/"><span class="badge badge-info">Margarita</span></a> <a class="tag" href="../../categories/python/"><span class="badge badge-info">Python</span></a> <a class="tag" href="../../categories/raspberry-pi/"><span class="badge badge-info">Raspberry Pi</span></a></small>
+            <div>
+              <div class="section" id="the-margarita-project">
+                <h2>The Margarita project</h2>
+                <p>This project’s goal is to build a controller for my house’s air exchanger that will optimize its utilization. It will take into account exterior and interior temperature and humidity to decide what the exchanger should do. In a second time I will add a web/phone interface to access and set the controller. In fact, I have a lot of other ideas and goals, but better to not make too many promises!</p><!-- TEASER_END -->
+              </div>
+              <div class="section" id="the-problem-and-the-current-situation">
+                <h2>The problem and the current situation</h2>
+                <p>I suffer from strong allergies so, a few years ago, I added to my house an air exchanger with <a class="reference external" href="http://en.wikipedia.org/wiki/HEPA">HEPA</a> filter, a <a class="reference external" href="http://www.venmar.ca/61-air-exchangers-thh-1-0.html">Venmar/VanEE THH 1.0</a>, to purify the inside air. Unfortunately the controllers that can work with this model are really limited (completely manual with only theses modes stop/slow/fast/recycle) or more targeted at managing the relative humidity. Not to mention that they are all pretty ugly. I really don’t have any difficulties to understand why <a class="reference external" href="http://www.theverge.com/2011/11/14/2559567/tony-fadell-nest-learning-thermostat">Tony Fadell created the Nest thermostat</a>!</p>
+                <p>What is needed for an exchanger targeted at purifying the air is to run it just enough to replace all the house’s air every day and maintaining a good humidity level at the same time. Not too dry in winter, not too humid in summer.</p>
+                <blockquote>
+                  In fact, a human at rest will <em>consume</em> around 400 cubic feet of air a day (0.27&nbsp;CFM). We are 5 humans living in my house. Running the exchanger at slow speed (45&nbsp;CFM) at least 45 min. each day should exit all the CO<sub>2</sub> we have created. It takes 12 hours at this speed to change all the house’s air volume (30,000&nbsp;cu&nbsp;ft). So, if I change all house’s air every day, CO<sub>2</sub> level should be kept low enough. At the beginning I was thinking about hooking also a CO<sub>2</sub> meter to my controller but, with these facts, I think I just need to set my controller to run the exchanger at least 45&nbsp;min. a day from exterior air and all will be fine on the CO<sub>2</sub> side (I know that my calculations don’t take in account some variables…).
+                </blockquote>
+                <p>My current solution is to use my costly <a class="reference external" href="http://www.aubetech.com/products/produitsDetails.php?noProduit=158&amp;noLangue=2">Aube thermostat</a> (TH146-P-U) that control my heating system and set it to control also the exchanger. I can set it to run the exchanger at a minimum of <em>x</em> minutes every hour and to run it more if there’s too much humidity. But it’s not possible to choose the fan speed, it’s always set at slow. I can neither control the recycling mode.</p>
+                <p>Connecting the exchanger to this thermostat was not easy. There’s no information on the 4 wires coming out from the exchanger (I called directly the manufacturer to ask for information but without success). These 4 wires come from a micro-controller on the exchanger board. I did some investigations and found that when 2 of the 4 wires are connected together the exchanger stop. So I added a relay between the thermostat relay and the exchanger to reverse the relay action. Unfortunately, with this setup, if I want to run the exchanger at full speed I still need to go in the basement and turn the button on the machine.</p>
+                <p>About a year after I did this set up, our house had a significant water infiltration that probably affected the exchanger. After this event the full speed was not working anymore. But I didn’t use the full speed really often so I can’t be sure if it’s the water or how I wired the controller that did the harm. But I know that the problem is definitely in the micro-controller. All the rest of the board is working properly.</p>
+                <p>So, this left me with two options:</p>
                 <ul class="simple">
-                  <li>Like Raspbian, it’s based on Debian, my preferred Linux
-                  distro.</li>
-
-                  <li>Unlike Raspbian, the SSH daemon is already activated.</li>
-
-                  <li>The <a class="reference external" href=
-                  "http://avahi.org/wiki/AboutAvahi">avahi</a> daemon is also already
-                  activated (Bonjour client).</li>
-
-                  <li>Many IO kernel modules are included.</li>
+                  <li>Change the exchanger board for around $150 and keep my current setup.</li>
+                  <li>Keep the old board and hook it to a custom controller that will fulfill my needs better that my current setup.</li>
                 </ul>
-
-                <p>The most important things for me are SSH and Bonjour. I don’t have any
-                display that I can plug to the RPi, so I need to be able to do everything
-                via SSH from the beginning. With Bonjour I don’t have to find/guess its
-                IP address, I can just connect to <em>raspberrypi.local</em>.</p>
+                <p>I chose the second option.</p>
               </div>
-
-              <div class="section" id="installing-the-distro">
-                <h3>Installing the distro</h3>
-
-                <p>I used a Mac to install the distro on the SD card. I followed these
-                <a class="reference external" href=
-                "http://elinux.org/RPi_Easy_SD_Card_Setup#Using_command_line_tools_.282.29">
-                instructions</a> except that I used the <a class="reference external"
-                href=
-                "http://adafruit-raspberry-pi.s3.amazonaws.com/Occidentalisv02.zip">Occidentalis
-                0.2 image</a>.</p>
+              <div class="section" id="choosing-the-controller-hardware">
+                <h2>Choosing the controller hardware</h2>
+                <p>The first time I heard about the <a class="reference external" href="http://www.raspberrypi.org/">Raspberry Pi</a> I immediately saw that was the perfect fit for my controller project. It would be easy for me to program the controller in Python, create a Phone interface by running a web server and interface it with the exchanger and some sensors with the GPIO. So, I bought one.</p>
+                <p>Just after buying it I stumbled on the <a class="reference external" href="http://beagleboard.org/Products/BeagleBone%20Black">BeagleBone Black</a> and it definitely look like another really good candidate for my project. The price is mostly the same ($45 for the BBB vs $35 for RPi, but you need to buy an SD card for the later). Some advantages of the BBB are more IO (some analogs!) and a faster CPU. Having flash memory instead of the SD card can be an advantage or disadvantage, it depends of the use. For me, it doesn’t really matter. Some disadvantages are a less powerful video output (it doesn’t matter for my project, there’s no display) and a smaller community. <em>Makezine</em> did a more <a class="reference external" href="http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/">thoughtful comparison</a>.</p>
+                <p>In my case a micro-controller, like the <a class="reference external" href="http://www.arduino.cc/">Arduino</a>, is not a good match because I need to be able to run a web server. I found only a few micro-controllers that can run a web server like the <a class="reference external" href="http://www.atmel.ca/devices/ATMEGA88.aspx">Atmega88</a>, but the learning curve and complexity is a big disadvantage for no apparent advantage in return in my case.</p>
               </div>
-
-              <div class="section" id="expanding-the-sd-card">
-                <h3>Expanding the SD card</h3>
-
-                <p>The SD card partition will be the same size as the distro image size
-                instead of the card size. It’s a good idea to expand the root partition
-                to fill the SD card. It’s easy to do so by choosing the
-                <em>expand_rootfs</em> menu option of the <a class="reference external"
-                href="http://elinux.org/RPi_raspi-config">raspi-config</a> script.</p>
-              </div>
-
-              <div class="section" id="upgrading-the-system">
-                <h3>Upgrading the system</h3>
-
-                <p>I think it’s good idea to upgrade the OS:</p>
-                <pre class="code bash literal-block">
+              <div class="section" id="setting-up-the-raspberry-pi">
+                <h2>Setting up the Raspberry Pi</h2>
+                <div class="section" id="choosing-a-linux-distribution">
+                  <h3>Choosing a Linux distribution</h3>
+                  <p>There are <a class="reference external" href="http://elinux.org/RPi_Distributions">many Linux distributions</a> for the Raspberry Pi. I chose <a class="reference external" href="http://learn.adafruit.com/adafruit-raspberry-pi-educational-linux-distro/occidentalis-v0-dot-2">Occidentalis 0.2</a> from <a class="reference external" href="http://www.adafruit.com/">Adafruit</a>. It’s derived from <a class="reference external" href="http://www.raspbian.org/">Raspbian</a>. For me the good things about Occidentalis are:</p>
+                  <ul class="simple">
+                    <li>Like Raspbian, it’s based on Debian, my preferred Linux distro.</li>
+                    <li>Unlike Raspbian, the SSH daemon is already activated.</li>
+                    <li>The <a class="reference external" href="http://avahi.org/wiki/AboutAvahi">avahi</a> daemon is also already activated (Bonjour client).
+                    </li>
+                    <li>Many IO kernel modules are included.</li>
+                  </ul>
+                  <p>The most important things for me are SSH and Bonjour. I don’t have any display that I can plug to the RPi, so I need to be able to do everything via SSH from the beginning. With Bonjour I don’t have to find/guess its IP address, I can just connect to <em>raspberrypi.local</em>.</p>
+                </div>
+                <div class="section" id="installing-the-distro">
+                  <h3>Installing the distro</h3>
+                  <p>I used a Mac to install the distro on the SD card. I followed these <a class="reference external" href="http://elinux.org/RPi_Easy_SD_Card_Setup#Using_command_line_tools_.282.29">instructions</a> except that I used the <a class="reference external" href="http://adafruit-raspberry-pi.s3.amazonaws.com/Occidentalisv02.zip">Occidentalis 0.2 image</a>.</p>
+                </div>
+                <div class="section" id="expanding-the-sd-card">
+                  <h3>Expanding the SD card</h3>
+                  <p>The SD card partition will be the same size as the distro image size instead of the card size. It’s a good idea to expand the root partition to fill the SD card. It’s easy to do so by choosing the <em>expand_rootfs</em> menu option of the <a class="reference external" href="http://elinux.org/RPi_raspi-config">raspi-config</a> script.</p>
+                </div>
+                <div class="section" id="upgrading-the-system">
+                  <h3>Upgrading the system</h3>
+                  <p>I think it’s good idea to upgrade the OS:</p>
+                  <pre class="code bash">
 <span class="nv">$ </span>sudo apt-get update
 <span class="nv">$ </span>sudo apt-get upgrade
 </pre>
-              </div>
-
-              <div class="section" id="adjusting-the-memory">
-                <h3>Adjusting the memory</h3>
-
-                <p>There are two things to adjust (at least in my case):</p>
-
-                <ol class="arabic">
-                  <li><p class="first">By default my RPi was using only 256 MB of the
-                    512 MB. I had to upgrade the firmware to access all the memory:</p>
-                    <pre class="code bash literal-block">
+                </div>
+                <div class="section" id="adjusting-the-memory">
+                  <h3>Adjusting the memory</h3>
+                  <p>There are two things to adjust (at least in my case):</p>
+                  <ol class="arabic">
+                    <li>
+                      <p class="first">By default my RPi was using only 256&nbsp;MB of the 512&nbsp;MB. I had to upgrade the firmware to access all the memory:</p>
+                      <pre class="code bash">
 <span class="nv">$ </span>sudo rpi-update
-</pre></li>
-
-                  <li><p class="first">Some memory is used by the GPU. It’s possible to
-                    change how much memory the GPU will use. In my case, as I will not
-                    use an external display, so I set it to the minimum:</p>
-                    <pre class="code bash literal-block">
+</pre>
+                    </li>
+                    <li>
+                      <p class="first">Some memory is used by the GPU. It’s possible to change how much memory the GPU will use. In my case, as I will not use an external display, so I set it to the minimum:</p>
+                      <pre class="code bash">
 <span class="nv">$ </span>sudo raspi-config
-</pre></li>
-                </ol>
-
-                <p>Then choose the <em>Memory Split</em> option in the <em>Advanced
-                Options</em> option. I set the GPU memory to 16 MB, which is the
-                minimum.</p>
-
-                <p>It’s also possible to <a class="reference external" href=
-                "http://elinux.org/RPiconfig#Memory">set the memory to be split
-                dynamically (CMA)</a>.</p>
-              </div>
-
-              <div class="section" id="connecting-it-directly-to-a-mac">
-                <h3>Connecting it directly to a Mac</h3>
-
-                <p>As I use the Occidentalis distro, I simply have to connect like
-                this:</p>
-                <pre class="code bash literal-block">
+</pre>
+                    </li>
+                  </ol>
+                  <p>Then choose the <em>Memory Split</em> option in the <em>Advanced Options</em> option. I set the GPU memory to 16&nbsp;MB, which is the minimum.</p>
+                  <p>It’s also possible to <a class="reference external" href="http://elinux.org/RPiconfig#Memory">set the memory to be split dynamically (CMA)</a>.</p>
+                </div>
+                <div class="section" id="connecting-it-directly-to-a-mac">
+                  <h3>Connecting it directly to a Mac</h3>
+                  <p>As I use the Occidentalis distro, I simply have to connect like this:</p>
+                  <pre class="code bash">
 <span class="nv">$ </span>ssh pi@rasbpberrypi.local
 </pre>
-
-                <p>Unfortunately I don’t have a WiFi dongle on my RPi and my router is
-                far from my main computer. But I would like to have the RPi sitting next
-                to my main computer to ease development. A solution is to connect the
-                Ethernet cable directly in my Mac and share the Mac Internet (WiFi)
-                connection. By sharing the Internet connection, the Mac will create a
-                subnet on 192.168.2.x and will assign dynamically an address to the RPi.
-                So, by sharing the Internet connection, you get two things: a subnet with
-                an address for the RPi so you can now connect to the RPi from your Mac,
-                and Internet access to the RPi. No need to turn on IPV6 on the RPi or to
-                install <em>avahi-autoipd</em>, as others suggested.</p>
-
-                <p>Unfortunately that did not work for me on the first try and many tries
-                after, until I realized that my LAN was already using the 192.168.2.x
-                subnet! I switched my LAN to another subnet and everything started to
-                work. If you can’t change the LAN subnet, another solution is to
-                <a class="reference external" href=
-                "http://blog.chariotsolutions.com/2013/03/configuring-network-used-by-mac-os-x.html">
-                change the default address</a> used by the Mac Internet sharing.</p>
-              </div>
-
-              <div class="section" id="setting-up-a-proper-python-environment">
-                <h3>Setting up a proper Python environment</h3>
-
-                <p>I will use mainly Python to develop my application. To work
-                comfortably I set up a few things Python related (the usual suspects:
-                <a class="reference external" href=
-                "http://www.pip-installer.org/">pip</a>, <a class="reference external"
-                href="http://www.virtualenv.org/">virtualenv</a>, <a class=
-                "reference external" href="http://ipython.org/">IPython</a>):</p>
-                <pre class="code bash literal-block">
+                  <p>Unfortunately I don’t have a WiFi dongle on my RPi and my router is far from my main computer. But I would like to have the RPi sitting next to my main computer to ease development. A solution is to connect the Ethernet cable directly in my Mac and share the Mac Internet (WiFi) connection. By sharing the Internet connection, the Mac will create a subnet on 192.168.2.x and will assign dynamically an address to the RPi. So, by sharing the Internet connection, you get two things: a subnet with an address for the RPi so you can now connect to the RPi from your Mac, and Internet access to the RPi. No need to turn on IPV6 on the RPi or to install <em>avahi-autoipd</em>, as others suggested.</p>
+                  <p>Unfortunately that did not work for me on the first try and many tries after, until I realized that my LAN was already using the 192.168.2.x subnet! I switched my LAN to another subnet and everything started to work. If you can’t change the LAN subnet, another solution is to <a class="reference external" href="http://blog.chariotsolutions.com/2013/03/configuring-network-used-by-mac-os-x.html">change the default address</a> used by the Mac Internet sharing.</p>
+                </div>
+                <div class="section" id="setting-up-a-proper-python-environment">
+                  <h3>Setting up a proper Python environment</h3>
+                  <p>I will use mainly Python to develop my application. To work comfortably I set up a few things Python related (the usual suspects: <a class="reference external" href="http://www.pip-installer.org/">pip</a>, <a class="reference external" href="http://www.virtualenv.org/">virtualenv</a>, <a class="reference external" href="http://ipython.org/">IPython</a>):</p>
+                  <pre class="code bash">
 <span class="nv">$ </span>sudo easy_install pip
 <span class="nv">$ </span>sudo pip install virtualenv
 <span class="nv">$ </span>mkdir venv
@@ -349,29 +172,24 @@
 <span class="nv">$ </span><span class="nb">source </span>venv/margarita/bin/activate
 <span class="nv">$ </span>sudo pip install ipython
 </pre>
-
-                <p>I also installed vim because vim.tiny, installed by default, lacks too
-                many features:</p>
-                <pre class="code bash literal-block">
+                  <p>I also installed vim because vim.tiny, installed by default, lacks too many features:</p>
+                  <pre class="code bash">
 <span class="nv">$ </span>sudo apt-get install vim
 </pre>
-
-                <p>That’s enough for now. Next time I will write about reading the
-                sensors and controlling the relays.</p>
+                  <p>That’s enough for now. Next time I will write about reading the sensors and controlling the relays.</p>
+                </div>
               </div>
             </div>
-
             <ul class="pager">
               <li class="next">
-                <a href="../extract-text-from-word-docx-simply/">Next post →</a></li>
+                <a href="../extract-text-from-word-docx-simply/">Next post →</a>
+              </li>
             </ul>
-
-            <div id="disqus_thread"></div><script type="text/javascript">
-//<![CDATA[
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            //<![CDATA[
             var disqus_shortname ="etiennesblog";
-
             var disqus_url="http://etienned.github.io/posts/raspberry-pi-as-air-exchanger-controller/";
-
             var disqus_title="Using a Raspberry Pi as an air exchanger controller";
             var disqus_identifier="cache/posts/raspberry-pi-as-air-exchanger-controller.html";
             var disqus_config = function () {
@@ -383,23 +201,21 @@
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
             //]]>
-            </script><a href="http://disqus.com" class="dsq-brlink">Comments powered by
-            <span class="logo-disqus">Disqus</span></a>
+            </script> <a href="http://disqus.com" class="dsq-brlink">Comments powered by <span class="logo-disqus">Disqus</span></a>
           </div>
         </div><!--End of body content-->
       </div>
     </div>
-
     <div class="row footer-row">
       <div class="col-lg-9 col-lg-offset-3 col-md-8 col-md-offset-4 col-sm-12 col-xs-12">
         <footer>
-          Contents © 2015 <a href="mailto:etienne.desautels@gmail.com">Etienne
-          Desautels</a> - Powered by <a href="http://getnikola.com">Nikola</a>
+          Contents © 2015 <a href="mailto:etienne.desautels@gmail.com">Etienne Desautels</a> - Powered by <a href="http://getnikola.com">Nikola</a>
         </footer>
       </div>
     </div>
-  </div><script>
-//<![CDATA[
+  </div>
+  <script type="text/javascript">
+  //<![CDATA[
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

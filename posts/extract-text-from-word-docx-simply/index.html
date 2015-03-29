@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
-
   <title>Extract text from Word files (docx) simply | Etienne’s blog</title>
-  <meta name="description" content=
-  "Extract text from Word files (docx) in Python without dependencies" />
+  <meta name="description" content="Extract text from Word files (docx) in Python without dependencies" />
   <meta name="author" content="Etienne Desautels" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="../../assets/css/all-nocdn.css" rel="stylesheet" /><!--[if IE 10]>
@@ -20,93 +17,68 @@
       <script type="text/javascript" src="/assets/js/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
   <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
   <div class="container main">
     <!-- Menu -->
-
     <div class="row">
       <header>
-        <a href="../../" class="logo"><img src="../../assets/img/pixrobot.png" alt=
-        "The Pixrobot!" width="253" height="204" /></a>
-
+        <a href="http://etienned.github.io/" class="logo"><img src="../../assets/img/pixrobot.png" alt="The Pixrobot!" width="253" height="204" /></a>
         <div class="main-nav">
-          <a href="../../">
+          <a href="http://etienned.github.io/">
           <div class="h1">
             Etienne’s blog <small>Python, technology and maybe more</small>
           </div></a>
-
           <div class="sub-header">
             <nav>
               <ul>
-                <li><a href="../../about/">About</a></li>
-
-                <li><a href="../../archive.html">Blog</a></li>
-
-                <li><a href="../../categories/index.html">Tags</a></li>
+                <li>
+                  <a href="../../about/">About</a>
+                </li>
+                <li>
+                  <a href="../../archive.html">Blog</a>
+                </li>
+                <li>
+                  <a href="../../categories/index.html">Tags</a>
+                </li>
               </ul>
             </nav>
-
             <ul class="social-icons">
-              <li><a href=
-                "http://www.facebook.com/sharer/sharer.php?u=http%3A//etienned.github.io/posts/extract-text-from-word-docx-simply/"
-                class="fb-link" title="Share on Facebook">Facebook</a></li>
-
-              <li><a href="http://twitter.com/share" class="twitter-link" title=
-                "Share on Twitter">Twitter</a></li>
-
-              <li><a href=
-                "http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A//etienned.github.io/posts/extract-text-from-word-docx-simply/&amp;title=Extract%20text%20from%20Word%20files%20%28docx%29%20simply"
-                class="linkedin-link" title="Share on LinkedIn">LinkedIn</a></li>
-
-              <li><a href=
-                "https://plus.google.com/share?url=http%3A//etienned.github.io/posts/extract-text-from-word-docx-simply/"
-                class="google-link" title="Share on Google+">Google+</a></li>
-
-              <li><a href="../../rss.xml" class="rss-link" title="RSS Feed">RSS</a></li>
+              <li>
+                <a href="http://www.facebook.com/sharer/sharer.php?u=http%3A//etienned.github.io/posts/extract-text-from-word-docx-simply/" class="fb-link" title="Share on Facebook">Facebook</a>
+              </li>
+              <li>
+                <a href="http://twitter.com/share" class="twitter-link" title="Share on Twitter">Twitter</a>
+              </li>
+              <li>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A//etienned.github.io/posts/extract-text-from-word-docx-simply/&amp;title=Extract%20text%20from%20Word%20files%20%28docx%29%20simply" class="linkedin-link" title="Share on LinkedIn">LinkedIn</a>
+              </li>
+              <li>
+                <a href="https://plus.google.com/share?url=http%3A//etienned.github.io/posts/extract-text-from-word-docx-simply/" class="google-link" title="Share on Google+">Google+</a>
+              </li>
+              <li>
+                <a href="../../rss.xml" class="rss-link" title="RSS Feed">RSS</a>
+              </li>
             </ul>
           </div>
         </div>
       </header>
     </div><!-- End of Menu -->
-
     <div class="row">
       <div class="col-lg-9 col-lg-offset-3 col-md-8 col-md-offset-4 col-sm-12 col-xs-12">
         <!--Body content-->
-
         <div class="body-content">
           <div class="postbox">
-            <h1>Extract text from Word files (docx) simply</h1><small><time class=
-            "published" datetime="2013-11-26T10:01:59">Nov 26, 2013</time><a class="tag"
-            href="../../categories/python.html"><span class=
-            "badge badge-info">Python</span></a></small>
-
-            <p>If you want to extract the text content of a Word file there are a few
-            <a class="reference external" href=
-            "http://stackoverflow.com/questions/42482/best-way-to-extract-text-from-a-word-doc-without-using-com-automation">
-            solutions</a> to do this in Python. Unfortunately most of these solutions
-            have dependencies or need to run an external command in a subprocess or are
-            heavy/complex, using an office suite, etc. I find that the best solution
-            among those in the Stackoverflow page is <a class="reference external" href=
-            "https://github.com/mikemaccana/python-docx">python-docx</a>. But using it
-            bring two dependencies: <em>python-docx</em> itself and <a class=
-            "reference external" href="http://lxml.de/">lxml</a>. Installing
-            <em>python-docx</em> is not a big problem. Unfortunately <em>lxml</em> is
-            sometimes hard to install or, at the minimum, requires compilation.</p>
-
-            <p>To avoid that, inspired by <em>python-docx</em>, I created a simple
-            function to extract text from <em>.docx</em> files that do not require
-            dependencies, using only the standard library. So it’s easy to incorporate it
-            in any Python project.</p>
-
-            <p>Is there any way to improve it?</p><script src=
-            "https://gist.github.com/7539105.js">
-</script><noscript>
-            <pre class="literal-block">
+            <h1>Extract text from Word files (docx) simply</h1><small><time class="published" datetime="2013-11-26T10:01:59+00:00">Nov 26, 2013</time> <a class="tag" href="../../categories/python/"><span class="badge badge-info">Python</span></a></small>
+            <div>
+              <p>If you want to extract the text content of a Word file there are a few <a class="reference external" href="http://stackoverflow.com/questions/42482/best-way-to-extract-text-from-a-word-doc-without-using-com-automation">solutions</a> to do this in Python. Unfortunately most of these solutions have dependencies or need to run an external command in a subprocess or are heavy/complex, using an office suite, etc. I find that the best solution among those in the Stackoverflow page is <a class="reference external" href="https://github.com/mikemaccana/python-docx">python-docx</a>. But using it bring two dependencies: <em>python-docx</em> itself and <a class="reference external" href="http://lxml.de/">lxml</a>. Installing <em>python-docx</em> is not a big problem. Unfortunately <em>lxml</em> is sometimes hard to install or, at the minimum, requires compilation.</p>
+              <p>To avoid that, inspired by <em>python-docx</em>, I created a simple function to extract text from <em>.docx</em> files that do not require dependencies, using only the standard library. So it’s easy to incorporate it in any Python project.</p>
+              <p>Is there any way to improve it?</p>
+              <script src="https://gist.github.com/7539105.js">
+              </script><noscript>
+              <pre class="literal-block">
 try:
     from xml.etree.cElementTree import XML
 except ImportError:
@@ -144,19 +116,17 @@ def get_docx_text(path):
     return '\n\n'.join(paragraphs)
 
 </pre></noscript>
-
+            </div>
             <ul class="pager">
               <li class="previous">
-                <a href="../raspberry-pi-as-air-exchanger-controller/">← Previous
-                post</a></li>
+                <a href="../raspberry-pi-as-air-exchanger-controller/">← Previous post</a>
+              </li>
             </ul>
-
-            <div id="disqus_thread"></div><script type="text/javascript">
-//<![CDATA[
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+            //<![CDATA[
             var disqus_shortname ="etiennesblog";
-
             var disqus_url="http://etienned.github.io/posts/extract-text-from-word-docx-simply/";
-
             var disqus_title="Extract text from Word files (docx) simply";
             var disqus_identifier="cache/posts/extract-text-from-word-docx-simply.html";
             var disqus_config = function () {
@@ -168,23 +138,21 @@ def get_docx_text(path):
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
             //]]>
-            </script><a href="http://disqus.com" class="dsq-brlink">Comments powered by
-            <span class="logo-disqus">Disqus</span></a>
+            </script> <a href="http://disqus.com" class="dsq-brlink">Comments powered by <span class="logo-disqus">Disqus</span></a>
           </div>
         </div><!--End of body content-->
       </div>
     </div>
-
     <div class="row footer-row">
       <div class="col-lg-9 col-lg-offset-3 col-md-8 col-md-offset-4 col-sm-12 col-xs-12">
         <footer>
-          Contents © 2015 <a href="mailto:etienne.desautels@gmail.com">Etienne
-          Desautels</a> - Powered by <a href="http://getnikola.com">Nikola</a>
+          Contents © 2015 <a href="mailto:etienne.desautels@gmail.com">Etienne Desautels</a> - Powered by <a href="http://getnikola.com">Nikola</a>
         </footer>
       </div>
     </div>
-  </div><script>
-//<![CDATA[
+  </div>
+  <script type="text/javascript">
+  //<![CDATA[
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

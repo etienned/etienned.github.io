@@ -17,7 +17,7 @@
 {% block body_title %}
   <h1>
     {{ blog_title }}
-    <small>{{ blog_desc }}</small></p>
+    <small>{{ blog_desc }}</small>
   </h1>
 {% endblock %}
 
@@ -27,7 +27,7 @@
         <h2><a href="{{ post.permalink() }}">{{ post.title() }}</a></h2>
         <small><time class="published" datetime="{{ post.date.isoformat() }}">{{ post.formatted_date(date_format) }}</time>
         </small>
-        {{ post.text(teaser_only=index_teasers, is_index=True) }}
+        {{ post.text(teaser_only=index_teasers) }}
         {% if not post.meta('nocomments') %}
             {{ comments.comment_link(post.permalink(), post.base_path) }}
         {% endif %}
